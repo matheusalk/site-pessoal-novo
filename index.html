@@ -6,6 +6,8 @@
 <title>Matheus Falkoski | Gestor de Tráfego Pago</title>
 <meta name="description" content="Aumente suas vendas com tráfego pago estratégico. Matheus Falkoski — gestor especialista em campanhas que geram resultados reais.">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Otimização Global de Qualidade de Imagem -->
+<link rel="stylesheet" href="image-quality.css">
 <style>
 :root{--color-bg-page:#0C0C0C;--color-bg-primary:#111111;--color-bg-section:#161616;--color-bg-card:#1C1C1C;--color-bg-elevated:#252525;--metal-100:#F0F0F0;--metal-200:#D8D8D8;--gradient-metal-light:linear-gradient(135deg,#FFFFFF 0%,#D0D0D0 40%,#FFFFFF 70%,#B0B0B0 100%);--color-accent:#1A56DB;--color-accent-hover:#1648C4;--color-accent-subtle:rgba(26,86,219,0.12);--color-accent-border:rgba(26,86,219,0.35);--color-accent-glow:rgba(26,86,219,0.25);--color-text-primary:#F4F4F4;--color-text-secondary:#CACACA;--color-text-muted:#888888;--color-text-disabled:#454545;--color-border-default:rgba(255,255,255,0.07);--color-border-strong:rgba(255,255,255,0.13);--color-gradient-accent:linear-gradient(135deg,#1A56DB,#1240B0);--font-display:'Montserrat',sans-serif;--font-body:'Montserrat',sans-serif;--shadow-accent:0 0 24px rgba(26,86,219,0.3);--shadow-accent-strong:0 0 40px rgba(26,86,219,0.45);--shadow-xl:0 16px 48px rgba(0,0,0,0.7);--ease-out:cubic-bezier(0,0,0.2,1);--ease-bounce:cubic-bezier(0.16,1,0.3,1);--nav-height:88px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -910,44 +912,6 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
     });
   }
 
-  // Draw rotating ring/polygon
-  function drawPolygon(ox,oy,r,sides,rot,alpha,lw){
-    ctx.strokeStyle=BLUE+alpha+')';
-    ctx.lineWidth=lw||1;
-    ctx.beginPath();
-    for(let i=0;i<=sides;i++){
-      const a=rot+(i/sides)*Math.PI*2;
-      const px=ox+Math.cos(a)*r;
-      const py=oy+Math.sin(a)*r;
-      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
-    }
-    ctx.closePath();
-    ctx.stroke();
-  }
-
-  // Draw diamond/tetrahedron
-  function drawDiamond(ox,oy,size,rx,ry,alpha){
-    const verts=[
-      [0,-1,0],[1,0,0],[0,0,1],[-1,0,0],[0,0,-1],[0,1,0]
-    ].map(([x,y,z])=>{
-      const y1=y*Math.cos(rx)-z*Math.sin(rx), z1=y*Math.sin(rx)+z*Math.cos(rx);
-      const x2=x*Math.cos(ry)+z1*Math.sin(ry), z2=-x*Math.sin(ry)+z1*Math.cos(ry);
-      return [x2*size,y1*size,z2*size];
-    });
-    const edges=[[0,1],[0,2],[0,3],[0,4],[5,1],[5,2],[5,3],[5,4],[1,2],[2,3],[3,4],[4,1]];
-    const fov=400;
-    ctx.strokeStyle=BLUE+alpha+')';
-    ctx.lineWidth=1;
-    edges.forEach(([a,b])=>{
-      const pa=proj(verts[a][0],verts[a][1],verts[a][2],fov,ox,oy);
-      const pb=proj(verts[b][0],verts[b][1],verts[b][2],fov,ox,oy);
-      ctx.beginPath();
-      ctx.moveTo(pa.x,pa.y);
-      ctx.lineTo(pb.x,pb.y);
-      ctx.stroke();
-    });
-  }
-
   function drawParticles(){
     // Small drifting dots
     const seed=42;
@@ -973,37 +937,17 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
     ctx.fillStyle=grad;
     ctx.fillRect(0,0,W,H);
 
-    // Main rotating cube (center)
-    drawCube(cx,cy*0.55,90,t*0.4,t*0.55,t*0.2,0.45);
+    // Main rotating cube (center right)
+    drawCube(cx*1.2,cy*0.55,90,t*0.4,t*0.55,t*0.2,0.45);
 
-    // Smaller cube orbiting
-    const or=120;
-    const ocx=cx+Math.cos(t*0.6)*or;
-    const ocy=cy*0.55+Math.sin(t*0.6)*or*0.4;
-    drawCube(ocx,ocy,38,t*0.9,-t*0.5,t*0.3,0.30);
+    // Second cube (top left)
+    drawCube(cx*0.35,cy*0.25,48,-t*0.5,t*0.7,-t*0.2,0.35);
 
-    // Diamond top left
-    drawDiamond(cx*0.4,cy*0.3,55,t*0.35,-t*0.5,0.30);
-
-    // Rotating hexagon rings
-    drawPolygon(cx,cy*0.55,170,6,t*0.18,0.18,1.5);
-    drawPolygon(cx,cy*0.55,210,6,-t*0.12,0.12,1);
-
-    // Triangle
-    drawPolygon(cx*1.5,cy*0.8,55,3,t*0.28,0.20,1.2);
+    // Third cube (bottom left)
+    drawCube(cx*0.55,cy*0.85,32,-t*0.3,-t*0.4,t*0.5,0.25);
 
     // Particles
     drawParticles();
-
-    // Thin connecting lines from cube to diamond
-    ctx.strokeStyle=BLUE+'0.15)';
-    ctx.lineWidth=1;
-    ctx.setLineDash([4,8]);
-    ctx.beginPath();
-    ctx.moveTo(cx*0.4,cy*0.3);
-    ctx.lineTo(cx,cy*0.55);
-    ctx.stroke();
-    ctx.setLineDash([]);
 
     requestAnimationFrame(frame);
   }

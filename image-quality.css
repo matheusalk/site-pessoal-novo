@@ -1,0 +1,30 @@
+/* 
+  Otimizações de Qualidade de Imagem 
+  Essas regras aplicam renderização de alta qualidade às imagens do site
+*/
+
+img {
+  /* Força a renderização com suavização ideal e otimiza contraste em algumas telas */
+  image-rendering: high-quality;
+  image-rendering: -webkit-optimize-contrast; 
+  /* Evita que as imagens fiquem borradas durante o redimensionamento */
+  transform: translateZ(0); 
+  will-change: auto;
+  /* Previne cintilações (flickering) em telas HD e aceleração de hardware */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Otimização especial para imagens em animações e hovers */
+.hero-img-wrap img,
+.sobre-img-wrap img,
+.cta-img-col img {
+  /* Filtro de nitidez sutil usando SVG caso exista, ou apenas o render default do Chrome muito mais nítido */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Suaviza melhor bordas de SVGs (ícones e logos se forem em formato vetorial) */
+svg {
+  shape-rendering: geometricPrecision;
+}
