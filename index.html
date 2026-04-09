@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matheus Falkoski | Gestor de Tráfego Pago</title>
+<meta name="description" content="Aumente suas vendas com tráfego pago estratégico. Matheus Falkoski — gestor especialista em campanhas que geram resultados reais.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--color-bg-page:#0C0C0C;--color-bg-primary:#111111;--color-bg-section:#161616;--color-bg-card:#1C1C1C;--color-bg-elevated:#252525;--metal-100:#F0F0F0;--metal-200:#D8D8D8;--gradient-metal-light:linear-gradient(135deg,#FFFFFF 0%,#D0D0D0 40%,#FFFFFF 70%,#B0B0B0 100%);--color-accent:#1A56DB;--color-accent-hover:#1648C4;--color-accent-subtle:rgba(26,86,219,0.12);--color-accent-border:rgba(26,86,219,0.35);--color-accent-glow:rgba(26,86,219,0.25);--color-text-primary:#F4F4F4;--color-text-secondary:#CACACA;--color-text-muted:#888888;--color-text-disabled:#454545;--color-border-default:rgba(255,255,255,0.07);--color-border-strong:rgba(255,255,255,0.13);--color-gradient-accent:linear-gradient(135deg,#1A56DB,#1240B0);--font-display:'Montserrat',sans-serif;--font-body:'Montserrat',sans-serif;--shadow-accent:0 0 24px rgba(26,86,219,0.3);--shadow-accent-strong:0 0 40px rgba(26,86,219,0.45);--shadow-xl:0 16px 48px rgba(0,0,0,0.7);--ease-out:cubic-bezier(0,0,0.2,1);--ease-bounce:cubic-bezier(0.16,1,0.3,1);--nav-height:88px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--color-bg-page);color:var(--color-text-secondary);font-family:var(--font-body);font-size:1rem;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+ul{list-style:none}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--color-bg-page)}
+::-webkit-scrollbar-thumb{background:var(--color-bg-elevated);border-radius:3px}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+@media(min-width:768px){.container{padding:0 40px}}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:600;line-height:1;cursor:pointer;border:none;transition:all .22s var(--ease-out);white-space:nowrap;position:relative;overflow:hidden;text-decoration:none}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.06) 0%,transparent 100%);pointer-events:none}
+.btn-primary{background:var(--color-gradient-accent);color:#fff;border-radius:6px;box-shadow:var(--shadow-accent),inset 0 1px 0 rgba(255,255,255,0.1);letter-spacing:.04em;font-size:.875rem}
+.btn-primary:hover{background:linear-gradient(135deg,#1648C4,#1038A0);box-shadow:var(--shadow-accent-strong);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--color-text-secondary);border:1px solid var(--color-border-strong);border-radius:6px;font-size:.875rem;letter-spacing:.04em}
+.btn-outline:hover{border-color:rgba(255,255,255,0.25);color:var(--color-text-primary);background:rgba(255,255,255,0.04);transform:translateY(-1px)}
+.btn-lg{padding:14px 30px;font-size:.9375rem}
+.btn-xl{padding:16px 36px;font-size:1rem}
+.btn-md{padding:11px 22px}
+
+/* HEADER */
+#header{position:fixed;top:0;left:0;right:0;height:var(--nav-height);z-index:200;transition:all .22s var(--ease-out)}
+#header.scrolled{background:rgba(17,17,17,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--color-border-default);box-shadow:0 4px 24px rgba(0,0,0,0.4)}
+.nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:32px;padding-top:12px}
+.nav-logo{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.nav-logo img{height:54px;width:auto;object-fit:contain;display:block}
+.nav-links{display:none}
+@media(min-width:768px){.nav-links{display:flex;align-items:center;gap:28px}}
+.nav-link{font-size:.8125rem;font-weight:500;color:var(--color-text-muted);letter-spacing:.04em;transition:color .15s}
+.nav-link:hover{color:var(--color-text-primary)}
+
+/* MOSAIC SCROLL — GPU-composited via translate3d, no layout thrashing */
+@keyframes mosaicScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
+
+/* NOTIFICAÇÕES */
+.notif-popup{position:absolute;z-index:10;background:rgba(22,22,22,0.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;min-width:220px;max-width:260px;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s;pointer-events:none}
+.notif-popup.show{opacity:1;transform:translateY(0)}
+.notif-icon{width:36px;height:36px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.notif-platform{font-size:.6rem;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:3px}
+.notif-msg{font-size:.8125rem;font-weight:700;color:var(--color-text-primary);line-height:1.2}
+.notif-sub{font-size:.75rem;color:var(--color-text-muted);margin-top:2px}
+.notif-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;flex-shrink:0;margin-left:auto;box-shadow:0 0 6px rgba(34,197,94,0.7)}
+.notif-1{bottom:28%;left:10px}
+.notif-2{top:22%;right:10px}
+.notif-3{bottom:10%;right:10px}
+.notif-4{top:42%;left:10px}
+
+/* SECTIONS */
+.section{padding:80px 0}
+.section-alt{background:var(--color-bg-section)}
+.section-header{text-align:center;margin-bottom:56px}
+.section-overline{font-size:.6875rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-accent);margin-bottom:14px}
+.section-h2{font-family:var(--font-display);font-size:clamp(1.75rem,4vw,2.625rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:var(--color-text-primary);margin-bottom:18px}
+.section-h2 em{font-style:normal;color:var(--color-accent)}
+.section-h2 .metal{background:var(--gradient-metal-light);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-sub{font-size:1rem;color:var(--color-text-muted);line-height:1.65;max-width:560px;margin:0 auto}
+.divider-accent{height:1px;background:linear-gradient(90deg,transparent,var(--color-accent),transparent);border:none;margin:0}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;position:relative;background:var(--color-bg-primary);overflow:hidden;padding-top:var(--nav-height)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 100% 40%,rgba(26,86,219,0.09),transparent),radial-gradient(ellipse 80% 60% at 0% 60%,rgba(10,10,10,0.8),transparent);pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;align-items:center;justify-content:center;padding:60px 20px 80px;text-align:center}
+.hero-content{max-width:680px}
+@media(min-width:1000px){#hero{flex-direction:row;align-items:stretch}.hero-inner{flex:1;padding:80px 56px;text-align:left;align-items:flex-start;max-width:50%;justify-content:center}.hero-content{max-width:100%}.hero-img-area{flex:1;max-width:50%;display:flex;align-items:flex-end;justify-content:center;padding:0 24px 0 0;overflow:hidden}}
+.hero-tag{display:inline-block;font-size:.6875rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-accent);background:var(--color-accent-subtle);border:1px solid var(--color-accent-border);border-radius:3px;padding:3px 10px;margin-bottom:20px;animation:fadeUp .7s var(--ease-bounce) .05s both}
+.hero-h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--color-text-primary);margin-bottom:20px;animation:fadeUp .9s var(--ease-bounce) .2s both}
+.hero-h1 .metal{background:var(--gradient-metal-light);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-h1 em{font-style:normal;color:var(--color-accent)}
+.hero-sub{font-size:1rem;line-height:1.65;color:var(--color-text-muted);margin-bottom:32px;max-width:480px;animation:fadeUp .7s var(--ease-bounce) .35s both}
+@media(min-width:1000px){.hero-sub{margin-left:0}}
+.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;animation:scaleIn .7s var(--ease-bounce) .55s both}
+@media(min-width:1000px){.hero-ctas{justify-content:flex-start}}
+.hero-note{margin-top:16px;font-size:.75rem;color:var(--color-text-disabled);display:flex;align-items:center;gap:6px;justify-content:center;animation:fadeUp .5s var(--ease-bounce) .7s both}
+@media(min-width:1000px){.hero-note{justify-content:flex-start}}
+/* Hero image: flush de baixo, sem padding bottom */
+.hero-img-wrap{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;height:100%;overflow:visible}
+.hero-img-wrap::before{content:'';position:absolute;bottom:0;left:10%;right:10%;height:160px;background:linear-gradient(to top,rgba(17,17,17,0.7) 0%,rgba(17,17,17,0.15) 55%,transparent 100%);pointer-events:none;z-index:2}
+.hero-img-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 50% 30%,rgba(26,86,219,0.07) 0%,transparent 75%);pointer-events:none;z-index:0}
+.hero-img-wrap img{position:relative;z-index:1;width:100%;max-width:520px;height:auto;object-fit:contain;object-position:bottom;display:block;filter:drop-shadow(0 2px 20px rgba(26,86,219,0.15));animation:scaleIn .9s var(--ease-bounce) .3s both;margin-bottom:0}
+@media(max-width:999px){.hero-img-wrap{max-width:380px;margin:32px auto 0;height:340px}.hero-img-wrap img{max-height:340px;object-fit:contain;object-position:bottom}}
+.stat-row{display:flex;gap:32px;flex-wrap:wrap;margin-top:36px;animation:fadeUp .7s var(--ease-bounce) .6s both}
+@media(min-width:1000px){.stat-row{justify-content:flex-start}}
+.stat-item{text-align:center}
+@media(min-width:1000px){.stat-item{text-align:left}}
+.stat-val{font-family:var(--font-display);font-size:1.75rem;font-weight:800;color:var(--color-text-primary);letter-spacing:-.03em;line-height:1}
+.stat-label{font-size:.75rem;color:var(--color-text-muted);margin-top:4px;letter-spacing:.04em}
+
+/* SOBRE */
+.sobre-split{display:grid;gap:48px;align-items:end}
+@media(min-width:900px){.sobre-split{grid-template-columns:1fr 1fr}}
+.sobre-img-wrap{position:relative;display:flex;justify-content:center;align-items:flex-end}
+.sobre-img-wrap img{width:100%;max-width:420px;border-radius:16px 16px 0 0;filter:drop-shadow(0 4px 20px rgba(26,86,219,0.12));position:relative;z-index:1;margin-bottom:0;display:block}
+.sobre-img-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 50% 45%,rgba(26,86,219,0.06),transparent);z-index:0}
+/* Section sobre: remove padding-bottom so image bleeds into next section, but text still has spacing */
+#sobre{padding-bottom:0}
+.sobre-text{padding-bottom:48px}
+/* MOSAIC PLATFORMS — fixing-motion-performance: compositor-only animation, GPU-promoted layer, no layout reads during frame */
+.platforms-mosaic{background:var(--color-bg-page);padding:32px 0 40px;border-bottom:1px solid var(--color-border-default);overflow:hidden;position:relative;width:100%;contain:layout style}
+.platforms-mosaic::before,.platforms-mosaic::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.platforms-mosaic::before{left:0;background:linear-gradient(to right,var(--color-bg-page),transparent)}
+.platforms-mosaic::after{right:0;background:linear-gradient(to left,var(--color-bg-page),transparent)}
+/* will-change surgically on the moving element only; transform3d forces GPU layer promotion */
+.platforms-mosaic-inner{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);animation:mosaicScroll 28s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.platforms-mosaic-inner:hover{animation-play-state:paused}
+.platforms-mosaic-set{display:flex;gap:16px;padding:0 8px}
+/* flex-shrink:0 prevents reflow triggers; no transition on layout props */
+.platform-tile{display:inline-flex;flex-direction:column;align-items:center;gap:10px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:14px;padding:20px 28px;min-width:140px;transition:border-color .22s,box-shadow .22s,opacity .22s;cursor:default;flex-shrink:0}
+/* hover uses transform (compositor) not margin/padding */
+.platform-tile:hover{border-color:var(--color-accent-border);box-shadow:var(--shadow-accent);opacity:.88}
+.platform-tile-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.platform-tile-name{font-size:.8125rem;font-weight:700;color:var(--color-text-primary);letter-spacing:.02em;text-align:center}
+.platform-tile-sub{font-size:.6875rem;color:var(--color-text-muted);text-align:center;line-height:1.3}
+.sobre-text h2{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:800;color:var(--color-text-primary);letter-spacing:-.02em;margin-bottom:20px;line-height:1.2}
+.sobre-text h2 em{font-style:normal;color:var(--color-accent)}
+.sobre-text p{font-size:1rem;color:var(--color-text-muted);line-height:1.65;margin-bottom:16px}
+.trust-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.trust-badge{display:flex;align-items:center;gap:8px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:8px;padding:10px 16px;font-size:.8125rem;color:var(--color-text-secondary)}
+.trust-badge svg{color:var(--color-accent);flex-shrink:0}
+
+/* SERVIÇOS */
+.servicos-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:600px){.servicos-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.servicos-grid{grid-template-columns:repeat(4,1fr)}}
+.servico-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:12px;padding:28px 24px;position:relative;overflow:hidden;transition:border-color .22s,transform .22s,box-shadow .22s}
+.servico-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease-out)}
+.servico-card:hover::before{transform:scaleX(1)}
+.servico-card:hover{border-color:var(--color-accent-border);transform:translateY(-4px);box-shadow:var(--shadow-accent)}
+.servico-icon{width:44px;height:44px;background:var(--color-accent-subtle);border:1px solid var(--color-accent-border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--color-accent);margin-bottom:18px}
+.servico-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--color-text-primary);margin-bottom:10px;letter-spacing:-.01em}
+.servico-desc{font-size:.875rem;color:var(--color-text-muted);line-height:1.6}
+
+/* PARA QUEM */
+.para-quem-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:600px){.para-quem-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.para-quem-grid{grid-template-columns:repeat(3,1fr)}}
+.para-quem-card{display:flex;align-items:flex-start;gap:14px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:8px;padding:20px;transition:border-color .22s,transform .22s}
+.para-quem-card:hover{border-color:var(--color-accent-border);transform:translateY(-2px)}
+.check-icon{width:22px;height:22px;background:var(--color-accent-subtle);border:1px solid var(--color-accent-border);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:var(--color-accent)}
+.para-quem-card h4{font-size:.9375rem;font-weight:600;color:var(--color-text-primary);margin-bottom:4px}
+.para-quem-card p{font-size:.8125rem;color:var(--color-text-muted);line-height:1.5}
+
+/* COMO FUNCIONA */
+.steps-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:800px;margin:0 auto}
+@media(min-width:700px){.steps-grid{grid-template-columns:repeat(3,1fr)}}
+.step-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:12px;padding:28px 24px;text-align:center;position:relative;transition:border-color .22s,transform .22s}
+.step-card:hover{border-color:var(--color-accent-border);transform:translateY(-3px)}
+.step-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--color-accent);opacity:.2;margin-bottom:12px;letter-spacing:-.03em;line-height:1}
+.step-title{font-size:1rem;font-weight:700;color:var(--color-text-primary);margin-bottom:10px}
+.step-desc{font-size:.875rem;color:var(--color-text-muted);line-height:1.6}
+
+/* RESULTADOS */
+.resultados-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:600px){.resultados-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.resultados-grid{grid-template-columns:repeat(4,1fr)}}
+.resultado-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:12px;padding:24px;text-align:center;transition:border-color .22s,transform .22s}
+.resultado-card:hover{border-color:var(--color-accent-border);transform:translateY(-2px)}
+.resultado-number{font-family:var(--font-display);font-size:2.25rem;font-weight:800;color:var(--color-text-primary);letter-spacing:-.03em;line-height:1;margin-bottom:6px}
+.resultado-number span{color:var(--color-accent)}
+.resultado-label{font-size:.8125rem;color:var(--color-text-muted)}
+
+/* FAQ */
+.faq-list{max-width:720px;margin:0 auto}
+.faq-item{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:8px;overflow:hidden;margin-bottom:8px;transition:border-color .22s}
+.faq-item:hover{border-color:var(--color-accent-border)}
+.faq-question{width:100%;background:transparent;border:none;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-family:var(--font-body);font-size:.9375rem;font-weight:500;color:var(--color-text-primary);text-align:left;transition:color .15s}
+.faq-question:hover{color:var(--color-accent)}
+.faq-arrow{color:var(--color-text-muted);flex-shrink:0;transition:transform .22s var(--ease-out),color .22s}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--color-accent)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .35s var(--ease-out)}
+.faq-item.open .faq-answer{max-height:300px}
+.faq-answer-inner{padding:0 24px 20px;font-size:.875rem;color:var(--color-text-muted);line-height:1.65}
+
+/* CTA FINAL */
+#cta-final{background:var(--color-bg-primary);position:relative;overflow:hidden}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(26,86,219,0.07),transparent);pointer-events:none}
+.cta-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:20px;padding:56px 40px;text-align:center;position:relative;overflow:hidden;max-width:700px;margin:0 auto;box-shadow:var(--shadow-xl)}
+.cta-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--color-gradient-accent)}
+.cta-card-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(26,86,219,0.08),transparent);pointer-events:none}
+.cta-content-col{position:relative;z-index:1}
+.cta-h2{font-family:var(--font-display);font-size:clamp(1.75rem,4vw,2.625rem);font-weight:800;color:var(--color-text-primary);letter-spacing:-.03em;line-height:1.15;margin-bottom:16px}
+.cta-h2 em{font-style:normal;color:var(--color-accent)}
+.cta-sub{font-size:1rem;color:var(--color-text-muted);line-height:1.65;max-width:480px;margin:0 auto 32px}
+.cta-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.cta-meta{margin-top:24px;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;font-size:.75rem;color:var(--color-text-disabled)}
+.cta-meta-item{display:flex;align-items:center;gap:6px}
+.cta-meta-item svg{color:var(--color-accent)}
+
+/* FOOTER */
+#footer{padding:40px 0;border-top:1px solid var(--color-border-default);background:var(--color-bg-page)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-brand{font-family:var(--font-display);font-size:.8125rem;font-weight:800;color:var(--color-text-muted);letter-spacing:.15em;text-transform:uppercase}
+.footer-copy{font-size:.75rem;color:var(--color-text-disabled);text-align:center}
+.footer-links{display:flex;gap:20px}
+.footer-link{font-size:.75rem;color:var(--color-text-disabled);transition:color .15s}
+.footer-link:hover{color:var(--color-text-muted)}
+
+/* REVEAL 3D */
+[data-reveal]{opacity:0;transform:perspective(800px) rotateX(18deg) translateY(40px) scale(0.97);transition:opacity .75s var(--ease-bounce),transform .75s var(--ease-bounce)}
+[data-reveal].revealed{opacity:1;transform:perspective(800px) rotateX(0deg) translateY(0) scale(1)}
+[data-reveal-group]>*{opacity:0;transform:perspective(600px) rotateX(22deg) translateY(30px) scale(0.96);transition:opacity .65s var(--ease-bounce),transform .65s var(--ease-bounce)}
+[data-reveal-group].revealed>*:nth-child(1){transition-delay:0ms}
+[data-reveal-group].revealed>*:nth-child(2){transition-delay:90ms}
+[data-reveal-group].revealed>*:nth-child(3){transition-delay:180ms}
+[data-reveal-group].revealed>*:nth-child(4){transition-delay:270ms}
+[data-reveal-group].revealed>*:nth-child(5){transition-delay:360ms}
+[data-reveal-group].revealed>*:nth-child(6){transition-delay:450ms}
+[data-reveal-group].revealed>*{opacity:1;transform:perspective(600px) rotateX(0deg) translateY(0) scale(1)}
+
+/* HERO 3D GEO */
+.hero-geo-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.6}
+
+/* TESTIMONIAL CAROUSEL */
+.testimonials-carousel-wrap{position:relative;overflow:hidden;margin-top:56px}
+.testimonials-carousel-wrap::before,.testimonials-carousel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+.testimonials-carousel-wrap::before{left:0;background:linear-gradient(to right,var(--color-bg-page),transparent)}
+.testimonials-carousel-wrap::after{right:0;background:linear-gradient(to left,var(--color-bg-page),transparent)}
+.testimonials-track{display:flex;width:max-content;animation:mosaicScroll 40s linear infinite;gap:20px;padding:4px 0}
+.testimonials-track:hover{animation-play-state:paused}
+.testimonial-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:16px;padding:24px 28px;width:300px;flex-shrink:0;position:relative;overflow:hidden;transition:border-color .22s,transform .22s}
+.testimonial-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-gradient-accent);opacity:0;transition:opacity .22s}
+.testimonial-card:hover{border-color:var(--color-accent-border);transform:translateY(-4px)}
+.testimonial-card:hover::before{opacity:1}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:14px}
+.star{font-size:14px}
+.star-full{color:#F59E0B}
+.star-empty{color:var(--color-text-disabled)}
+.testimonial-text{font-size:.875rem;color:var(--color-text-secondary);line-height:1.65;font-style:italic;margin-bottom:16px}
+.testimonial-author{font-size:.8125rem;font-weight:700;color:var(--color-text-primary)}
+.testimonial-role{font-size:.75rem;color:var(--color-text-muted);margin-top:2px}
+
+@keyframes fadeUp{from{opacity:0;transform:perspective(600px) rotateX(30deg) translateY(50px)}to{opacity:1;transform:perspective(600px) rotateX(0deg) translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:perspective(800px) scale(0.88) rotateY(-8deg)}to{opacity:1;transform:perspective(800px) scale(1) rotateY(0deg)}}
+@keyframes glowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.75;transform:scale(1.06)}}
+@keyframes notifIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}[data-reveal],[data-reveal-group]>*{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header id="header">
+  <div class="container">
+    <nav class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="Gemini_Generated_Image_ltdzurltdzurltdz-Photoroom-Photoroom.png" alt="Falk Company Logo">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#sobre" class="nav-link">Sobre</a></li>
+        <li><a href="#servicos" class="nav-link">Serviços</a></li>
+        <li><a href="#resultados" class="nav-link">Resultados</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+      <a href="https://wa.me/5551991855705?text=Ol%C3%A1%2C%20gostaria%20de%20uma%20consultoria" target="_blank" class="btn btn-primary btn-md">Consultoria Gratuita</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner container">
+    <div class="hero-content">
+      <div class="hero-tag">Gestor de Tráfego Pago</div>
+      <h1 class="hero-h1">Transforme Cliques em <em>Clientes Reais</em><br>com Tráfego <span class="metal">Estratégico</span></h1>
+      <p class="hero-sub">Paro de queimar o seu dinheiro em anúncios sem retorno. Com campanhas baseadas em dados e estratégia, cada real investido trabalha para multiplicar suas vendas.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5551991855705?text=Ol%C3%A1%2C%20gostaria%20de%20uma%20consultoria" target="_blank" class="btn btn-primary btn-xl">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.477 2.001 2 6.477 2 12c0 1.989.575 3.842 1.565 5.407L2.001 22l4.734-1.542A9.958 9.958 0 0011.999 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001z"/></svg>
+          Quero minha Consultoria Grátis
+        </a>
+        <a href="#servicos" class="btn btn-outline btn-xl">Ver Serviços</a>
+      </div>
+      <div class="hero-note">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.5 4.5H11L8 6.5L9 10L6 8L3 10L4 6.5L1 4.5H4.5L6 1Z" fill="currentColor" opacity=".4"/></svg>
+        Sem compromisso · 100% gratuito
+      </div>
+      <div class="stat-row" style="justify-content:center">
+        <div class="stat-item"><div class="stat-val">+50</div><div class="stat-label">Clientes Atendidos</div></div>
+        <div class="stat-item"><div class="stat-val">3x</div><div class="stat-label">Retorno Médio (ROAS)</div></div>
+        <div class="stat-item"><div class="stat-val">2+</div><div class="stat-label">Anos no Mercado</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-img-area">
+    <div class="hero-img-wrap" id="hero-img-wrap">
+      <canvas class="hero-geo-canvas" id="heroGeoCanvas"></canvas>
+      <img src="Gemini_Generated_Image_wdveq8wdveq8wdve-Photoroom.png" alt="Matheus Falkoski - Gestor de Tráfego">
+      <!-- Notificação 1 - Instagram (inferior esquerda) -->
+      <div class="notif-popup notif-1" id="notif-insta">
+        <div class="notif-icon" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="white" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" fill="none"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="notif-platform">Instagram Ads</div>
+          <div class="notif-msg">Novo lead captado!</div>
+          <div class="notif-sub">Ana L. quer consultoria</div>
+        </div>
+        <div class="notif-dot"></div>
+      </div>
+      <!-- Notificação 2 - Google (superior direita) -->
+      <div class="notif-popup notif-2" id="notif-google">
+        <div class="notif-icon" style="background:#fff;border:1px solid rgba(0,0,0,0.1)">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="notif-platform">Google Ads</div>
+          <div class="notif-msg">Lead qualificado!</div>
+          <div class="notif-sub">João P. clicou no anúncio</div>
+        </div>
+        <div class="notif-dot"></div>
+      </div>
+      <!-- Notificação 3 - Facebook (inferior direita) -->
+      <div class="notif-popup notif-3" id="notif-fb">
+        <div class="notif-icon" style="background:#1877F2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="notif-platform">Facebook Ads</div>
+          <div class="notif-msg">Nova venda confirmada!</div>
+          <div class="notif-sub">Carlos M. · R$ 2.497,00</div>
+        </div>
+        <div class="notif-dot"></div>
+      </div>
+      <!-- Notificação 4 - TikTok (meio esquerda) -->
+      <div class="notif-popup notif-4" id="notif-tiktok">
+        <div class="notif-icon" style="background:#010101">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="notif-platform">TikTok Ads</div>
+          <div class="notif-msg">+47 novos seguidores!</div>
+          <div class="notif-sub">Campanha ativa agora</div>
+        </div>
+        <div class="notif-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS MOSAIC -->
+<div class="platforms-mosaic">
+  <div class="platforms-mosaic-inner" id="mosaic-inner">
+    <!-- SET 1 -->
+    <div class="platforms-mosaic-set">
+      <!-- Meta Ads -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#0866FF,#0052CC)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <div class="platform-tile-name">Meta Ads</div>
+        <div class="platform-tile-sub">Facebook & Instagram</div>
+      </div>
+      <!-- Google Ads -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:#fff;border:1px solid rgba(0,0,0,0.08)">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        </div>
+        <div class="platform-tile-name">Google Ads</div>
+        <div class="platform-tile-sub">Search & Display</div>
+      </div>
+      <!-- TikTok Ads -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:#010101">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
+        </div>
+        <div class="platform-tile-name">TikTok Ads</div>
+        <div class="platform-tile-sub">Alcance Massivo</div>
+      </div>
+      <!-- Landing Pages -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,var(--color-accent),#1240B0)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="platform-tile-name">Landing Pages</div>
+        <div class="platform-tile-sub">Alta Conversão</div>
+      </div>
+      <!-- Automação -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#7C3AED,#5B21B6)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="platform-tile-name">Automação</div>
+        <div class="platform-tile-sub">Escala Inteligente</div>
+      </div>
+    </div>
+    <!-- SET 2 (duplicate for seamless loop) -->
+    <div class="platforms-mosaic-set" aria-hidden="true">
+      <!-- Meta Ads -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#0866FF,#0052CC)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <div class="platform-tile-name">Meta Ads</div>
+        <div class="platform-tile-sub">Facebook & Instagram</div>
+      </div>
+      <!-- Google Ads -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:#fff;border:1px solid rgba(0,0,0,0.08)">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        </div>
+        <div class="platform-tile-name">Google Ads</div>
+        <div class="platform-tile-sub">Search & Display</div>
+      </div>
+      <!-- TikTok Ads -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:#010101">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
+        </div>
+        <div class="platform-tile-name">TikTok Ads</div>
+        <div class="platform-tile-sub">Alcance Massivo</div>
+      </div>
+      <!-- Landing Pages -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,var(--color-accent),#1240B0)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="platform-tile-name">Landing Pages</div>
+        <div class="platform-tile-sub">Alta Conversão</div>
+      </div>
+      <!-- Automação -->
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#7C3AED,#5B21B6)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="platform-tile-name">Automação</div>
+        <div class="platform-tile-sub">Escala Inteligente</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider-accent">
+
+<!-- 2. SOBRE -->
+<section id="sobre" class="section">
+  <div class="container">
+    <div class="sobre-split">
+      <div class="sobre-img-wrap" data-reveal="left">
+        <img src="mvFRx-Photoroom.png" alt="Matheus Falkoski">
+      </div>
+      <div class="sobre-text" data-reveal="right">
+        <div class="section-overline">Quem Sou Eu</div>
+        <h2>Matheus Falkoski,<br><em>Especialista em</em> Tráfego Pago</h2>
+        <p>Natural de Santo Antônio da Patrulha, tenho 23 anos e me dedico há mais de 2 anos ao marketing digital de alta performance. Faço parte da maior comunidade de gestores de tráfego do Brasil.</p>
+        <p>Minha missão é simples: fazer com que cada real investido em anúncios retorne em forma de resultado real para o seu negócio. Não trabalho com achismos — trabalho com dados, testes e estratégia.</p>
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 4.5H12L9.5 6.5L10.5 10L7 8L3.5 10L4.5 6.5L2 4.5H5.5L7 1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            Meta Ads Certificado
+          </div>
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7L5.5 10.5L12 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Google Ads Expert
+          </div>
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M7 4.5V7L8.5 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            +2 Anos de Experiência
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-accent">
+
+<!-- 3. SERVIÇOS -->
+<section id="servicos" class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-overline">O Que Eu Faço</div>
+      <h2 class="section-h2">Serviços que <em>Geram Resultados</em></h2>
+      <p class="section-sub">Ofereço uma solução completa para posicionar sua marca na frente das pessoas certas — aquelas que estão prontas para comprar.</p>
+    </div>
+    <div class="servicos-grid" data-reveal-group>
+      <div class="servico-card">
+        <div class="servico-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 9H15M7 13H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="servico-title">Tráfego Pago</h3>
+        <p class="servico-desc">Campanhas no Meta Ads, Google Ads e TikTok Ads focadas em conversão e escala com o menor CPL possível.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 12L7 8L11 12L15 7L19 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="servico-title">Planejamento Estratégico</h3>
+        <p class="servico-desc">Análise completa do seu negócio, público-alvo e concorrência para criar uma estratégia digital personalizada e eficaz.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="12" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="12" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h3 class="servico-title">Landing Pages</h3>
+        <p class="servico-desc">Páginas de alta conversão projetadas para transformar visitantes em leads e leads em clientes pagantes.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4H18V14H4V4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 18H14M11 14V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="servico-title">Automação de Marketing</h3>
+        <p class="servico-desc">Fluxos automáticos de nutrição, remarketing e recuperação de leads para maximizar cada oportunidade de venda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-accent">
+
+<!-- 4. PARA QUEM -->
+<section id="para-quem" class="section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-overline">Para Quem é</div>
+      <h2 class="section-h2">Você Se <em>Identifica</em> com Algum Desses Cenários?</h2>
+      <p class="section-sub">Se uma dessas situações descreve seu negócio, você está deixando dinheiro na mesa. Vamos mudar isso juntos.</p>
+    </div>
+    <div class="para-quem-grid" data-reveal-group>
+      <div class="para-quem-card">
+        <div class="check-icon"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Investe em anúncios sem retorno</h4><p>Você já gastou com Facebook Ads ou Google Ads e não viu resultado nenhum chegar.</p></div>
+      </div>
+      <div class="para-quem-card">
+        <div class="check-icon"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Perde clientes para a concorrência</h4><p>Seu produto é bom, mas quem aparece primeiro na frente do cliente é o concorrente.</p></div>
+      </div>
+      <div class="para-quem-card">
+        <div class="check-icon"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Vendas inconsistentes todo mês</h4><p>Um mês vai bem, no outro mal. Você não tem previsibilidade nas suas receitas.</p></div>
+      </div>
+      <div class="para-quem-card">
+        <div class="check-icon"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Quer escalar sem aumentar custo</h4><p>Quer crescer, mas toda tentativa de escala só aumenta o custo sem aumentar o lucro.</p></div>
+      </div>
+      <div class="para-quem-card">
+        <div class="check-icon"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Precisa de mais reconhecimento</h4><p>Sua marca não é lembrada pelo público certo e você quer construir autoridade no digital.</p></div>
+      </div>
+      <div class="para-quem-card">
+        <div class="check-icon"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Não tem tempo para gerenciar tudo</h4><p>Você é empreendedor e não pode se dedicar ao marketing digital — precisa de um especialista.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-accent">
+
+<!-- 5. COMO FUNCIONA -->
+<section id="como-funciona" class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-overline">Processo</div>
+      <h2 class="section-h2">Como <em>Funciona</em> na Prática</h2>
+      <p class="section-sub">Um processo claro, transparente e focado em resultados mensuráveis do início ao fim.</p>
+    </div>
+    <div class="steps-grid" data-reveal-group>
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Diagnóstico Gratuito</h3>
+        <p class="step-desc">Conversamos sobre seu negócio, metas e desafios atuais. Analiso o que está freando seus resultados e identifico as maiores oportunidades.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Estratégia Personalizada</h3>
+        <p class="step-desc">Crio um plano de ação sob medida: escolha de plataformas, definição de públicos, criativos e orçamento otimizado para o seu objetivo.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Gestão e Escala</h3>
+        <p class="step-desc">Implemento, monitoro e otimizo suas campanhas continuamente. Você recebe relatórios claros e acompanha o crescimento em tempo real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-accent">
+
+<!-- 6. RESULTADOS -->
+<section id="resultados" class="section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-overline">Resultados</div>
+      <h2 class="section-h2">Números que <em>Falam</em> por Si</h2>
+      <p class="section-sub">Resultados reais de clientes reais. Cada campanha é gerenciada com foco total em ROI e crescimento sustentável.</p>
+    </div>
+    <div class="resultados-grid" data-reveal-group>
+      <div class="resultado-card">
+        <div class="resultado-number"><span>+</span>200<span>%</span></div>
+        <div class="resultado-label">Aumento médio em vendas</div>
+      </div>
+      <div class="resultado-card">
+        <div class="resultado-number"><span>3</span>x</div>
+        <div class="resultado-label">ROAS médio alcançado</div>
+      </div>
+      <div class="resultado-card">
+        <div class="resultado-number"><span>-</span>40<span>%</span></div>
+        <div class="resultado-label">Redução do custo por lead</div>
+      </div>
+      <div class="resultado-card">
+        <div class="resultado-number">50<span>+</span></div>
+        <div class="resultado-label">Empresas transformadas</div>
+      </div>
+    </div>
+    <!-- Testimonial Carousel -->
+    <div class="testimonials-carousel-wrap" data-reveal>
+      <div class="testimonials-track">
+        <!-- SET 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+          </div>
+          <p class="testimonial-text">"Depois de 3 meses com o Matheus, as minhas vendas cresceram mais de 150%. O diferencial dele é que realmente entende o que está fazendo, sem achismo."</p>
+          <div class="testimonial-author">Carlos S.</div>
+          <div class="testimonial-role">Loja Online de Moda</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-empty">&#9733;</span>
+          </div>
+          <p class="testimonial-text">"Custo por lead caiu quase 40% no primeiro mês. Ainda estamos ajustando os criativos, mas os resultados já superaram o que eu esperava."</p>
+          <div class="testimonial-author">Fernanda L.</div>
+          <div class="testimonial-role">Clínica Estética</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+          </div>
+          <p class="testimonial-text">"Pensei que era mais um gestor igual aos outros. Me enganei. Acompanha de perto, manda relatórios toda semana e está sempre disponível quando preciso."</p>
+          <div class="testimonial-author">Ricardo M.</div>
+          <div class="testimonial-role">Consultório Odontológico</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+          </div>
+          <p class="testimonial-text">"O ROAS do nosso e-commerce foi de 1.8x para 4x em dois meses. Que diferença faz ter alguém que entende de números de verdade. Super recomendo."</p>
+          <div class="testimonial-author">Ana Paula R.</div>
+          <div class="testimonial-role">E-commerce de Suplementos</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-empty">&#9733;</span>
+          </div>
+          <p class="testimonial-text">"Bom trabalho no geral. Tivemos um mês mais fraco no meio do caminho, mas o Matheus ajustou a estratégia e a recuperação foi rápida. Vale o investimento."</p>
+          <div class="testimonial-author">Marcos T.</div>
+          <div class="testimonial-role">Agência de Viagens</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+          </div>
+          <p class="testimonial-text">"Terceiro mês de parceria e os resultados só crescem. Profissional, pontual, transparente. Exatamente o que a gente precisa quando abre o bolso pra tráfego."</p>
+          <div class="testimonial-author">Juliana W.</div>
+          <div class="testimonial-role">Escola de Idiomas</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+          </div>
+          <p class="testimonial-text">"Nunca tive tantos leads qualificados. A consultoria gratuita já me mostrou onde estava o problema: no público que eu atingia, não no meu produto."</p>
+          <div class="testimonial-author">Diego K.</div>
+          <div class="testimonial-role">Coach de Carreira</div>
+        </div>
+        <!-- SET 2 (duplicate for seamless loop) -->
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-stars"><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span></div>
+          <p class="testimonial-text">"Depois de 3 meses com o Matheus, as minhas vendas cresceram mais de 150%. O diferencial dele é que realmente entende o que está fazendo, sem achismo."</p>
+          <div class="testimonial-author">Carlos S.</div><div class="testimonial-role">Loja Online de Moda</div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-stars"><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-empty">&#9733;</span></div>
+          <p class="testimonial-text">"Custo por lead caiu quase 40% no primeiro mês. Ainda estamos ajustando os criativos, mas os resultados já superaram o que eu esperava."</p>
+          <div class="testimonial-author">Fernanda L.</div><div class="testimonial-role">Clínica Estética</div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-stars"><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span></div>
+          <p class="testimonial-text">"Pensei que era mais um gestor igual aos outros. Me enganei. Acompanha de perto, manda relatórios toda semana e está sempre disponível quando preciso."</p>
+          <div class="testimonial-author">Ricardo M.</div><div class="testimonial-role">Consultório Odontológico</div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-stars"><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span></div>
+          <p class="testimonial-text">"O ROAS do nosso e-commerce foi de 1.8x para 4x em dois meses. Que diferença faz ter alguém que entende de números de verdade. Super recomendo."</p>
+          <div class="testimonial-author">Ana Paula R.</div><div class="testimonial-role">E-commerce de Suplementos</div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-stars"><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-empty">&#9733;</span></div>
+          <p class="testimonial-text">"Bom trabalho no geral. Tivemos um mês mais fraco no meio do caminho, mas o Matheus ajustou a estratégia e a recuperação foi rápida. Vale o investimento."</p>
+          <div class="testimonial-author">Marcos T.</div><div class="testimonial-role">Agência de Viagens</div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-stars"><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span></div>
+          <p class="testimonial-text">"Terceiro mês de parceria e os resultados só crescem. Profissional, pontual, transparente. Exatamente o que a gente precisa quando abre o bolso pra tráfego."</p>
+          <div class="testimonial-author">Juliana W.</div><div class="testimonial-role">Escola de Idiomas</div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-stars"><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span></div>
+          <p class="testimonial-text">"Nunca tive tantos leads qualificados. A consultoria gratuita já me mostrou onde estava o problema: no público que eu atingia, não no meu produto."</p>
+          <div class="testimonial-author">Diego K.</div><div class="testimonial-role">Coach de Carreira</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-accent">
+
+<!-- 7. FAQ + CTA -->
+<section id="faq" class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-overline">Dúvidas Frequentes</div>
+      <h2 class="section-h2">Perguntas <em>Respondidas</em></h2>
+    </div>
+    <div class="faq-list" data-reveal>
+      <div class="faq-item">
+        <button class="faq-question" id="faq-q1" aria-expanded="false">
+          Qual o valor mínimo para investir em tráfego pago?
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a1">
+          <div class="faq-answer-inner">Recomendo um orçamento mínimo de R$500/mês em verba de anúncios para que seja possível testar e otimizar com eficiência. Abaixo disso, os dados são insuficientes para tomar boas decisões.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" id="faq-q2" aria-expanded="false">
+          Em quanto tempo verei resultados?
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a2">
+          <div class="faq-answer-inner">Os primeiros resultados aparecem nos primeiros 7–14 dias. A fase de aprendizado das plataformas dura em média 30 dias, e após esse período, as campanhas passam a performar de forma muito mais eficiente.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" id="faq-q3" aria-expanded="false">
+          Você atende qualquer tipo de negócio?
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a3">
+          <div class="faq-answer-inner">Atendo tanto e-commerce quanto negócios locais, prestadores de serviço e infoprodutos. A consultoria inicial é gratuita justamente para avaliar se existe fit entre o seu negócio e a estratégia certa para você.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" id="faq-q4" aria-expanded="false">
+          Como funciona o acompanhamento?
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a4">
+          <div class="faq-answer-inner">Você recebe relatórios semanais com os principais indicadores (impressões, cliques, CPL, ROAS) e temos uma call de alinhamento mensal para recalibrar estratégias conforme os resultados.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final" class="section">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-card" data-reveal>
+      <div class="cta-card-bg"></div>
+      <!-- Content Column -->
+      <div class="cta-content-col">
+        <div class="section-overline">Próximo Passo</div>
+        <h2 class="cta-h2">Pronto para <em>Multiplicar</em><br>Suas Vendas?</h2>
+        <p class="cta-sub">A consultoria é gratuita, sem compromisso e sem enrolação. Em 30 minutos você sairá com um diagnóstico real e um plano de ação para o seu negócio.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/5551991855705?text=Ol%C3%A1%2C%20gostaria%20de%20uma%20consultoria" target="_blank" class="btn btn-primary btn-xl">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.477 2.001 2 6.477 2 12c0 1.989.575 3.842 1.565 5.407L2.001 22l4.734-1.542A9.958 9.958 0 0011.999 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001z"/></svg>
+            Agendar Consultoria Gratuita
+          </a>
+        </div>
+        <div class="cta-meta">
+          <div class="cta-meta-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L4.5 8.5L10 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem taxa de adesão</div>
+          <div class="cta-meta-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L4.5 8.5L10 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Resposta em até 24h</div>
+          <div class="cta-meta-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L4.5 8.5L10 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>(55) 51 99185-5705</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand"><img src="Gemini_Generated_Image_ltdzurltdzurltdz-Photoroom-Photoroom.png" alt="Falk Company" style="height:40px;width:auto;opacity:.7;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7"></div>
+      <div class="footer-copy">© 2025 Matheus Falkoski. Todos os direitos reservados.</div>
+      <div class="footer-links">
+        <a href="https://wa.me/5551991855705" target="_blank" class="footer-link">WhatsApp</a>
+        <a href="mailto:matheus.falkoski20@gmail.com" class="footer-link">E-mail</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Header scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('header').classList.toggle('scrolled',window.scrollY>20)
+},{ passive:true });
+
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.closest('.faq-item');
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+
+// Scroll reveal 3D
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('revealed');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:.10});
+document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>observer.observe(el));
+
+// Sale notifications cycling
+(function(){
+  const notifs=[
+    {id:'notif-insta',delay:1200},
+    {id:'notif-google',delay:3800},
+    {id:'notif-fb',delay:6400},
+    {id:'notif-tiktok',delay:9000}
+  ];
+  function showNotif(cfg){
+    const el=document.getElementById(cfg.id);
+    if(!el) return;
+    setTimeout(()=>{
+      el.classList.add('show');
+      setTimeout(()=>el.classList.remove('show'),3200);
+    },cfg.delay);
+  }
+  function cycleAll(){
+    notifs.forEach(n=>showNotif(n));
+    setTimeout(cycleAll,14000);
+  }
+  cycleAll();
+})();
+
+// ==========================================
+// HERO GEO CANVAS - 3D Geometric Animation
+// ==========================================
+(function(){
+  const canvas = document.getElementById('heroGeoCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const BLUE = 'rgba(26,86,219,';
+  let W,H,cx,cy,t=0;
+
+  function resize(){
+    W=canvas.width=canvas.offsetWidth;
+    H=canvas.height=canvas.offsetHeight;
+    cx=W/2; cy=H/2;
+  }
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+
+  // Project 3D point to 2D
+  function proj(x,y,z,fov,ox,oy){
+    const f=fov/(fov+z);
+    return {x:ox+x*f, y:oy+y*f, s:f};
+  }
+
+  // Draw wireframe cube
+  function drawCube(ox,oy,size,rx,ry,rz,alpha){
+    const verts=[
+      [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+      [-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]
+    ].map(([x,y,z])=>{
+      // Rotate X
+      const y1=y*Math.cos(rx)-z*Math.sin(rx), z1=y*Math.sin(rx)+z*Math.cos(rx);
+      // Rotate Y
+      const x2=x*Math.cos(ry)+z1*Math.sin(ry), z2=-x*Math.sin(ry)+z1*Math.cos(ry);
+      // Rotate Z
+      const x3=x2*Math.cos(rz)-y1*Math.sin(rz), y3=x2*Math.sin(rz)+y1*Math.cos(rz);
+      return [x3*size,y3*size,z2*size];
+    });
+    const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+    const fov=400;
+    ctx.strokeStyle=BLUE+alpha+')';
+    ctx.lineWidth=1.2;
+    edges.forEach(([a,b])=>{
+      const pa=proj(verts[a][0],verts[a][1],verts[a][2],fov,ox,oy);
+      const pb=proj(verts[b][0],verts[b][1],verts[b][2],fov,ox,oy);
+      ctx.beginPath();
+      ctx.moveTo(pa.x,pa.y);
+      ctx.lineTo(pb.x,pb.y);
+      ctx.stroke();
+    });
+  }
+
+  // Draw rotating ring/polygon
+  function drawPolygon(ox,oy,r,sides,rot,alpha,lw){
+    ctx.strokeStyle=BLUE+alpha+')';
+    ctx.lineWidth=lw||1;
+    ctx.beginPath();
+    for(let i=0;i<=sides;i++){
+      const a=rot+(i/sides)*Math.PI*2;
+      const px=ox+Math.cos(a)*r;
+      const py=oy+Math.sin(a)*r;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.closePath();
+    ctx.stroke();
+  }
+
+  // Draw diamond/tetrahedron
+  function drawDiamond(ox,oy,size,rx,ry,alpha){
+    const verts=[
+      [0,-1,0],[1,0,0],[0,0,1],[-1,0,0],[0,0,-1],[0,1,0]
+    ].map(([x,y,z])=>{
+      const y1=y*Math.cos(rx)-z*Math.sin(rx), z1=y*Math.sin(rx)+z*Math.cos(rx);
+      const x2=x*Math.cos(ry)+z1*Math.sin(ry), z2=-x*Math.sin(ry)+z1*Math.cos(ry);
+      return [x2*size,y1*size,z2*size];
+    });
+    const edges=[[0,1],[0,2],[0,3],[0,4],[5,1],[5,2],[5,3],[5,4],[1,2],[2,3],[3,4],[4,1]];
+    const fov=400;
+    ctx.strokeStyle=BLUE+alpha+')';
+    ctx.lineWidth=1;
+    edges.forEach(([a,b])=>{
+      const pa=proj(verts[a][0],verts[a][1],verts[a][2],fov,ox,oy);
+      const pb=proj(verts[b][0],verts[b][1],verts[b][2],fov,ox,oy);
+      ctx.beginPath();
+      ctx.moveTo(pa.x,pa.y);
+      ctx.lineTo(pb.x,pb.y);
+      ctx.stroke();
+    });
+  }
+
+  function drawParticles(){
+    // Small drifting dots
+    const seed=42;
+    for(let i=0;i<18;i++){
+      const px=cx+Math.sin(t*0.3+i*1.3)*W*0.4;
+      const py=cy+Math.cos(t*0.25+i*1.7)*H*0.4;
+      const a=0.08+0.08*Math.sin(t+i);
+      ctx.fillStyle=BLUE+a+')';
+      ctx.beginPath();
+      ctx.arc(px,py,1.5+Math.sin(t*0.5+i),0,Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function frame(){
+    t+=0.008;
+    ctx.clearRect(0,0,W,H);
+
+    // Background radial glow
+    const grad=ctx.createRadialGradient(cx,cy*0.6,0,cx,cy*0.6,Math.max(W,H)*0.55);
+    grad.addColorStop(0,'rgba(26,86,219,0.08)');
+    grad.addColorStop(1,'rgba(26,86,219,0)');
+    ctx.fillStyle=grad;
+    ctx.fillRect(0,0,W,H);
+
+    // Main rotating cube (center)
+    drawCube(cx,cy*0.55,90,t*0.4,t*0.55,t*0.2,0.45);
+
+    // Smaller cube orbiting
+    const or=120;
+    const ocx=cx+Math.cos(t*0.6)*or;
+    const ocy=cy*0.55+Math.sin(t*0.6)*or*0.4;
+    drawCube(ocx,ocy,38,t*0.9,-t*0.5,t*0.3,0.30);
+
+    // Diamond top left
+    drawDiamond(cx*0.4,cy*0.3,55,t*0.35,-t*0.5,0.30);
+
+    // Rotating hexagon rings
+    drawPolygon(cx,cy*0.55,170,6,t*0.18,0.18,1.5);
+    drawPolygon(cx,cy*0.55,210,6,-t*0.12,0.12,1);
+
+    // Triangle
+    drawPolygon(cx*1.5,cy*0.8,55,3,t*0.28,0.20,1.2);
+
+    // Particles
+    drawParticles();
+
+    // Thin connecting lines from cube to diamond
+    ctx.strokeStyle=BLUE+'0.15)';
+    ctx.lineWidth=1;
+    ctx.setLineDash([4,8]);
+    ctx.beginPath();
+    ctx.moveTo(cx*0.4,cy*0.3);
+    ctx.lineTo(cx,cy*0.55);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>
