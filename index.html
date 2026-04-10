@@ -109,22 +109,20 @@ ul{list-style:none}
 /* Section sobre: remove padding-bottom so image bleeds into next section, but text still has spacing */
 #sobre{padding-bottom:0}
 .sobre-text{padding-bottom:48px}
-/* MOSAIC PLATFORMS — fixing-motion-performance: compositor-only animation, GPU-promoted layer, no layout reads during frame */
-.platforms-mosaic{background:var(--color-bg-page);padding:32px 0 40px;border-bottom:1px solid var(--color-border-default);overflow:hidden;position:relative;width:100%;contain:layout style}
-.platforms-mosaic::before,.platforms-mosaic::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+/* MOSAIC PLATFORMS */
+.platforms-mosaic{background:var(--color-bg-page);padding:40px 0 48px;border-bottom:1px solid var(--color-border-default);overflow:hidden;position:relative;width:100%;contain:layout style}
+.platforms-mosaic::before,.platforms-mosaic::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
 .platforms-mosaic::before{left:0;background:linear-gradient(to right,var(--color-bg-page),transparent)}
 .platforms-mosaic::after{right:0;background:linear-gradient(to left,var(--color-bg-page),transparent)}
-/* will-change surgically on the moving element only; transform3d forces GPU layer promotion */
-.platforms-mosaic-inner{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);animation:mosaicScroll 28s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.platforms-mosaic-inner{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);animation:mosaicScroll 32s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .platforms-mosaic-inner:hover{animation-play-state:paused}
-.platforms-mosaic-set{display:flex;gap:16px;padding:0 8px}
-/* flex-shrink:0 prevents reflow triggers; no transition on layout props */
-.platform-tile{display:inline-flex;flex-direction:column;align-items:center;gap:10px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:14px;padding:20px 28px;min-width:140px;transition:border-color .22s,box-shadow .22s,opacity .22s;cursor:default;flex-shrink:0}
-/* hover uses transform (compositor) not margin/padding */
-.platform-tile:hover{border-color:var(--color-accent-border);box-shadow:var(--shadow-accent);opacity:.88}
-.platform-tile-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.platform-tile-name{font-size:.8125rem;font-weight:700;color:var(--color-text-primary);letter-spacing:.02em;text-align:center}
-.platform-tile-sub{font-size:.6875rem;color:var(--color-text-muted);text-align:center;line-height:1.3}
+.platforms-mosaic-set{display:flex;gap:20px;padding:0 10px}
+.platform-tile{display:inline-flex;flex-direction:row;align-items:center;gap:16px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:16px;padding:18px 28px;min-width:190px;transition:border-color .3s var(--ease-out),box-shadow .3s var(--ease-out),transform .3s var(--ease-bounce);cursor:default;flex-shrink:0}
+.platform-tile:hover{border-color:var(--color-accent-border);box-shadow:0 0 0 1px var(--color-accent-border),0 8px 32px rgba(26,86,219,0.2);transform:translateY(-3px)}
+.platform-tile-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.platform-tile-info{display:flex;flex-direction:column;gap:3px}
+.platform-tile-name{font-size:.9375rem;font-weight:700;color:var(--color-text-primary);letter-spacing:-.01em;line-height:1.2}
+.platform-tile-sub{font-size:.75rem;color:var(--color-text-muted);line-height:1.3}
 .sobre-text h2{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:800;color:var(--color-text-primary);letter-spacing:-.02em;margin-bottom:20px;line-height:1.2}
 .sobre-text h2 em{font-style:normal;color:var(--color-accent)}
 .sobre-text p{font-size:1rem;color:var(--color-text-muted);line-height:1.65;margin-bottom:16px}
@@ -132,17 +130,47 @@ ul{list-style:none}
 .trust-badge{display:flex;align-items:center;gap:8px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:8px;padding:10px 16px;font-size:.8125rem;color:var(--color-text-secondary)}
 .trust-badge svg{color:var(--color-accent);flex-shrink:0}
 
-/* SERVIÇOS */
-.servicos-grid{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:600px){.servicos-grid{grid-template-columns:1fr 1fr}}
-@media(min-width:900px){.servicos-grid{grid-template-columns:repeat(4,1fr)}}
-.servico-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:12px;padding:28px 24px;position:relative;overflow:hidden;transition:border-color .22s,transform .22s,box-shadow .22s}
-.servico-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease-out)}
-.servico-card:hover::before{transform:scaleX(1)}
-.servico-card:hover{border-color:var(--color-accent-border);transform:translateY(-4px);box-shadow:var(--shadow-accent)}
-.servico-icon{width:44px;height:44px;background:var(--color-accent-subtle);border:1px solid var(--color-accent-border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--color-accent);margin-bottom:18px}
-.servico-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--color-text-primary);margin-bottom:10px;letter-spacing:-.01em}
-.servico-desc{font-size:.875rem;color:var(--color-text-muted);line-height:1.6}
+/* SERVIÇOS — CARROSSEL 3D */
+.servicos-scene-wrap{width:100%;padding:20px 0 16px;display:flex;flex-direction:column;align-items:center;gap:36px}
+.servicos-scene{width:100%;height:440px;display:flex;align-items:center;justify-content:center;perspective:1100px;perspective-origin:50% 48%;cursor:grab}
+.servicos-scene:active{cursor:grabbing}
+.servicos-carousel{width:260px;height:340px;position:relative;transform-style:preserve-3d;will-change:transform}
+/* Faces */
+.svc-face-0{transform:rotateY(0deg)   translateZ(340px)}
+.svc-face-1{transform:rotateY(90deg)  translateZ(340px)}
+.svc-face-2{transform:rotateY(180deg) translateZ(340px)}
+.svc-face-3{transform:rotateY(270deg) translateZ(340px)}
+/* Card base — usa design do site */
+.servico-card{position:absolute;width:260px;height:340px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:16px;padding:32px 26px;display:flex;flex-direction:column;gap:0;overflow:hidden;transition:background .4s,border-color .4s,box-shadow .4s}
+.servico-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-out)}
+/* is-front = iluminado */
+.servico-card.is-front{border-color:var(--color-accent-border);box-shadow:0 0 0 1px var(--color-accent-border),0 16px 56px rgba(26,86,219,.28),inset 0 1px 0 rgba(255,255,255,.06)}
+.servico-card.is-front::before{transform:scaleX(1)}
+.servico-card.is-front .servico-title{color:var(--color-text-primary)}
+.servico-card.is-front .servico-desc{color:var(--color-text-muted)}
+/* is-back = escurecido */
+.servico-card.is-back{background:rgba(15,17,24,0.5);border-color:rgba(255,255,255,0.05)}
+.servico-card.is-back .servico-icon{opacity:.18}
+.servico-card.is-back .servico-title{color:rgba(255,255,255,0.12)}
+.servico-card.is-back .servico-desc{color:rgba(255,255,255,0.07)}
+/* Icon boxes com cores */
+.servico-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;transition:opacity .4s;flex-shrink:0}
+.svc-blue   .servico-icon{background:rgba(59,130,246,0.14);border:1px solid rgba(59,130,246,0.25)}
+.svc-yellow .servico-icon{background:rgba(234,179,8,0.14);border:1px solid rgba(234,179,8,0.25)}
+.svc-green  .servico-icon{background:rgba(34,197,94,0.14);border:1px solid rgba(34,197,94,0.25)}
+.svc-purple .servico-icon{background:rgba(168,85,247,0.14);border:1px solid rgba(168,85,247,0.25)}
+.svc-blue   .servico-icon svg{stroke:#60a5fa}
+.svc-yellow .servico-icon svg{stroke:#facc15}
+.svc-green  .servico-icon svg{stroke:#4ade80}
+.svc-purple .servico-icon svg{stroke:#c084fc}
+.servico-title{font-family:var(--font-display);font-size:1.0625rem;font-weight:800;color:rgba(255,255,255,0.15);margin-bottom:14px;letter-spacing:-.01em;line-height:1.25;transition:color .4s}
+.servico-desc{font-size:.875rem;color:rgba(255,255,255,0.07);line-height:1.65;transition:color .4s}
+/* Dots */
+.svc-dots{display:flex;gap:9px;justify-content:center;margin-top:4px}
+.svc-dot{width:7px;height:7px;border-radius:50%;background:var(--color-border-strong);transition:background .3s,transform .3s;cursor:pointer}
+.svc-dot.active{background:var(--color-accent);transform:scale(1.4)}
+/* SVGs — ícones estáticos, apenas herdam a cor */
+.svc-icon-svg{width:26px;height:26px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* PARA QUEM */
 .para-quem-grid{display:grid;grid-template-columns:1fr;gap:12px}
@@ -154,14 +182,28 @@ ul{list-style:none}
 .para-quem-card h4{font-size:.9375rem;font-weight:600;color:var(--color-text-primary);margin-bottom:4px}
 .para-quem-card p{font-size:.8125rem;color:var(--color-text-muted);line-height:1.5}
 
-/* COMO FUNCIONA */
-.steps-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:800px;margin:0 auto}
-@media(min-width:700px){.steps-grid{grid-template-columns:repeat(3,1fr)}}
-.step-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:12px;padding:28px 24px;text-align:center;position:relative;transition:border-color .22s,transform .22s}
-.step-card:hover{border-color:var(--color-accent-border);transform:translateY(-3px)}
-.step-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--color-accent);opacity:.2;margin-bottom:12px;letter-spacing:-.03em;line-height:1}
-.step-title{font-size:1rem;font-weight:700;color:var(--color-text-primary);margin-bottom:10px}
-.step-desc{font-size:.875rem;color:var(--color-text-muted);line-height:1.6}
+/* COMO FUNCIONA — FASE LOOP INFINITO */
+@keyframes faseScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
+@keyframes faseCardIn{from{opacity:0;transform:perspective(600px) rotateY(-12deg) translateY(20px) scale(0.94)}to{opacity:1;transform:perspective(600px) rotateY(0deg) translateY(0) scale(1)}}
+.fase-loop-outer{position:relative;overflow:hidden;padding:24px 0 48px;contain:layout style}
+.fase-loop-outer::before,.fase-loop-outer::after{content:'';position:absolute;top:0;bottom:0;width:160px;z-index:3;pointer-events:none}
+.fase-loop-outer::before{left:0;background:linear-gradient(to right,var(--color-bg-section) 20%,transparent)}
+.fase-loop-outer::after{right:0;background:linear-gradient(to left,var(--color-bg-section) 20%,transparent)}
+.fase-loop-track{display:flex;width:max-content;gap:20px;padding:16px 0;will-change:transform;transform:translate3d(0,0,0);animation:faseScroll 36s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fase-loop-track:hover{animation-play-state:paused}
+.fase-loop-set{display:flex;gap:20px;padding:0 10px}
+.fase-card{flex-shrink:0;width:300px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:18px;padding:32px 26px 28px;position:relative;overflow:hidden;transition:border-color .4s var(--ease-out),box-shadow .4s var(--ease-out),transform .4s var(--ease-bounce);cursor:default;animation:faseCardIn .7s var(--ease-bounce) both}
+.fase-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--color-gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.16,1,0.3,1)}
+.fase-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(26,86,219,0.07),transparent);opacity:0;transition:opacity .4s;pointer-events:none}
+.fase-card-ghost{position:absolute;bottom:-14px;right:-6px;font-family:var(--font-display);font-size:8rem;font-weight:900;color:rgba(255,255,255,0.035);line-height:1;letter-spacing:-.04em;pointer-events:none;user-select:none;transition:color .4s,transform .4s var(--ease-bounce)}
+.fase-card:hover{border-color:var(--color-accent-border);box-shadow:0 0 0 1px var(--color-accent-border),0 12px 48px rgba(26,86,219,0.28),inset 0 1px 0 rgba(255,255,255,0.07);transform:translateY(-8px) scale(1.01)}
+.fase-card:hover::before{transform:scaleX(1)}
+.fase-card:hover::after{opacity:1}
+.fase-card:hover .fase-card-ghost{color:rgba(26,86,219,0.14);transform:scale(1.06) translate(-4px,-4px)}
+.fase-label{font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px;display:block}
+.fase-title{font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:var(--color-text-primary);letter-spacing:-.02em;line-height:1.2;margin-bottom:12px;transition:color .3s}
+.fase-card:hover .fase-title{color:#fff}
+.fase-desc{font-size:.85rem;color:var(--color-text-muted);line-height:1.65}
 
 /* RESULTADOS */
 .resultados-grid{display:grid;grid-template-columns:1fr;gap:16px}
@@ -221,8 +263,7 @@ ul{list-style:none}
 [data-reveal-group].revealed>*:nth-child(6){transition-delay:450ms}
 [data-reveal-group].revealed>*{opacity:1;transform:perspective(600px) rotateX(0deg) translateY(0) scale(1)}
 
-/* HERO 3D GEO */
-.hero-geo-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.6}
+/* hero-geo-canvas removed */
 
 /* TESTIMONIAL CAROUSEL */
 .testimonials-carousel-wrap{position:relative;overflow:hidden;margin-top:56px}
@@ -297,7 +338,7 @@ ul{list-style:none}
   </div>
   <div class="hero-img-area">
     <div class="hero-img-wrap" id="hero-img-wrap">
-      <canvas class="hero-geo-canvas" id="heroGeoCanvas"></canvas>
+
       <img src="Gemini_Generated_Image_wdveq8wdveq8wdve-Photoroom.png" alt="Matheus Falkoski - Gestor de Tráfego">
       <!-- Notificação 1 - Instagram (inferior esquerda) -->
       <div class="notif-popup notif-1" id="notif-insta">
@@ -356,88 +397,92 @@ ul{list-style:none}
   <div class="platforms-mosaic-inner" id="mosaic-inner">
     <!-- SET 1 -->
     <div class="platforms-mosaic-set">
-      <!-- Meta Ads -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:linear-gradient(135deg,#0866FF,#0052CC)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </div>
-        <div class="platform-tile-name">Meta Ads</div>
-        <div class="platform-tile-sub">Facebook & Instagram</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Meta Ads</div><div class="platform-tile-sub">Facebook & Instagram</div></div>
       </div>
-      <!-- Google Ads -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:#fff;border:1px solid rgba(0,0,0,0.08)">
-          <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         </div>
-        <div class="platform-tile-name">Google Ads</div>
-        <div class="platform-tile-sub">Search & Display</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Google Ads</div><div class="platform-tile-sub">Search & Display</div></div>
       </div>
-      <!-- TikTok Ads -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:#010101">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
         </div>
-        <div class="platform-tile-name">TikTok Ads</div>
-        <div class="platform-tile-sub">Alcance Massivo</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">TikTok Ads</div><div class="platform-tile-sub">Alcance Massivo</div></div>
       </div>
-      <!-- Landing Pages -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:linear-gradient(135deg,var(--color-accent),#1240B0)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg>
         </div>
-        <div class="platform-tile-name">Landing Pages</div>
-        <div class="platform-tile-sub">Alta Conversão</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Landing Pages</div><div class="platform-tile-sub">Alta Conversão</div></div>
       </div>
-      <!-- Automação -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:linear-gradient(135deg,#7C3AED,#5B21B6)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <div class="platform-tile-name">Automação</div>
-        <div class="platform-tile-sub">Escala Inteligente</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Automação</div><div class="platform-tile-sub">Escala Inteligente</div></div>
+      </div>
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#059669,#047857)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
+        </div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Relatórios</div><div class="platform-tile-sub">Dados em Tempo Real</div></div>
+      </div>
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#DC2626,#991B1B)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="platform-tile-info"><div class="platform-tile-name">YouTube Ads</div><div class="platform-tile-sub">Vídeo & Awareness</div></div>
       </div>
     </div>
     <!-- SET 2 (duplicate for seamless loop) -->
     <div class="platforms-mosaic-set" aria-hidden="true">
-      <!-- Meta Ads -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:linear-gradient(135deg,#0866FF,#0052CC)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </div>
-        <div class="platform-tile-name">Meta Ads</div>
-        <div class="platform-tile-sub">Facebook & Instagram</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Meta Ads</div><div class="platform-tile-sub">Facebook & Instagram</div></div>
       </div>
-      <!-- Google Ads -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:#fff;border:1px solid rgba(0,0,0,0.08)">
-          <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         </div>
-        <div class="platform-tile-name">Google Ads</div>
-        <div class="platform-tile-sub">Search & Display</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Google Ads</div><div class="platform-tile-sub">Search & Display</div></div>
       </div>
-      <!-- TikTok Ads -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:#010101">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
         </div>
-        <div class="platform-tile-name">TikTok Ads</div>
-        <div class="platform-tile-sub">Alcance Massivo</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">TikTok Ads</div><div class="platform-tile-sub">Alcance Massivo</div></div>
       </div>
-      <!-- Landing Pages -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:linear-gradient(135deg,var(--color-accent),#1240B0)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg>
         </div>
-        <div class="platform-tile-name">Landing Pages</div>
-        <div class="platform-tile-sub">Alta Conversão</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Landing Pages</div><div class="platform-tile-sub">Alta Conversão</div></div>
       </div>
-      <!-- Automação -->
       <div class="platform-tile">
         <div class="platform-tile-icon" style="background:linear-gradient(135deg,#7C3AED,#5B21B6)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <div class="platform-tile-name">Automação</div>
-        <div class="platform-tile-sub">Escala Inteligente</div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Automação</div><div class="platform-tile-sub">Escala Inteligente</div></div>
+      </div>
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#059669,#047857)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
+        </div>
+        <div class="platform-tile-info"><div class="platform-tile-name">Relatórios</div><div class="platform-tile-sub">Dados em Tempo Real</div></div>
+      </div>
+      <div class="platform-tile">
+        <div class="platform-tile-icon" style="background:linear-gradient(135deg,#DC2626,#991B1B)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="platform-tile-info"><div class="platform-tile-name">YouTube Ads</div><div class="platform-tile-sub">Vídeo & Awareness</div></div>
       </div>
     </div>
   </div>
@@ -486,36 +531,56 @@ ul{list-style:none}
       <h2 class="section-h2">Serviços que <em>Geram Resultados</em></h2>
       <p class="section-sub">Ofereço uma solução completa para posicionar sua marca na frente das pessoas certas — aquelas que estão prontas para comprar.</p>
     </div>
-    <div class="servicos-grid" data-reveal-group>
-      <div class="servico-card">
-        <div class="servico-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 9H15M7 13H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </div>
+  <!-- Carrossel 3D -->
+  <div class="servicos-scene-wrap" data-reveal>
+    <div class="servicos-scene" id="svcScene">
+      <div class="servicos-carousel" id="svcCarousel">
+
+        <!-- Face 0 — Tráfego Pago (azul) -->
+        <div class="servico-card svc-face-0 svc-blue is-front" id="svc-0">
+          <div class="servico-icon">
+            <svg viewBox="0 0 22 22" class="svc-icon-svg">
+              <rect x="2" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 9H15M7 13H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="servico-title">Tráfego Pago</h3>
+          <p class="servico-desc">Campanhas no Meta Ads, Google Ads e TikTok Ads focadas em conversão e escala com o menor CPL possível.</p>
         </div>
-        <h3 class="servico-title">Tráfego Pago</h3>
-        <p class="servico-desc">Campanhas no Meta Ads, Google Ads e TikTok Ads focadas em conversão e escala com o menor CPL possível.</p>
-      </div>
-      <div class="servico-card">
-        <div class="servico-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 12L7 8L11 12L15 7L19 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+
+        <!-- Face 1 — Planejamento Estratégico (amarelo) -->
+        <div class="servico-card svc-face-1 svc-yellow is-back" id="svc-1">
+          <div class="servico-icon">
+            <svg viewBox="0 0 22 22" class="svc-icon-svg">
+              <path d="M3 12L7 8L11 12L15 7L19 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="servico-title">Planejamento Estratégico</h3>
+          <p class="servico-desc">Análise completa do seu negócio, público-alvo e concorrência para criar uma estratégia digital personalizada e eficaz.</p>
         </div>
-        <h3 class="servico-title">Planejamento Estratégico</h3>
-        <p class="servico-desc">Análise completa do seu negócio, público-alvo e concorrência para criar uma estratégia digital personalizada e eficaz.</p>
-      </div>
-      <div class="servico-card">
-        <div class="servico-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="12" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="12" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+
+        <!-- Face 2 — Landing Pages (verde) -->
+        <div class="servico-card svc-face-2 svc-green is-back" id="svc-2">
+          <div class="servico-icon">
+            <svg viewBox="0 0 22 22" class="svc-icon-svg">
+              <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="12" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="12" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3 class="servico-title">Landing Pages</h3>
+          <p class="servico-desc">Páginas de alta conversão projetadas para transformar visitantes em leads e leads em clientes pagantes.</p>
         </div>
-        <h3 class="servico-title">Landing Pages</h3>
-        <p class="servico-desc">Páginas de alta conversão projetadas para transformar visitantes em leads e leads em clientes pagantes.</p>
-      </div>
-      <div class="servico-card">
-        <div class="servico-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4H18V14H4V4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 18H14M11 14V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+
+        <!-- Face 3 — Automação de Marketing (roxo) -->
+        <div class="servico-card svc-face-3 svc-purple is-back" id="svc-3">
+          <div class="servico-icon">
+            <svg viewBox="0 0 22 22" class="svc-icon-svg">
+              <path d="M4 4H18V14H4V4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 18H14M11 14V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="servico-title">Automação de Marketing</h3>
+          <p class="servico-desc">Fluxos automáticos de nutrição, remarketing e recuperação de leads para maximizar cada oportunidade de venda.</p>
         </div>
-        <h3 class="servico-title">Automação de Marketing</h3>
-        <p class="servico-desc">Fluxos automáticos de nutrição, remarketing e recuperação de leads para maximizar cada oportunidade de venda.</p>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -568,21 +633,99 @@ ul{list-style:none}
       <h2 class="section-h2">Como <em>Funciona</em> na Prática</h2>
       <p class="section-sub">Um processo claro, transparente e focado em resultados mensuráveis do início ao fim.</p>
     </div>
-    <div class="steps-grid" data-reveal-group>
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <h3 class="step-title">Diagnóstico Gratuito</h3>
-        <p class="step-desc">Conversamos sobre seu negócio, metas e desafios atuais. Analiso o que está freando seus resultados e identifico as maiores oportunidades.</p>
+  </div>
+  <!-- Loop Infinito de Fases -->
+  <div class="fase-loop-outer" data-reveal>
+    <div class="fase-loop-track" id="faseLoopTrack">
+      <!-- SET 1 -->
+      <div class="fase-loop-set">
+        <div class="fase-card">
+          <span class="fase-label">Fase 1</span>
+          <div class="fase-card-ghost">1</div>
+          <h3 class="fase-title">Diagnóstico Gratuito</h3>
+          <p class="fase-desc">Conversamos sobre seu negócio, metas e desafios atuais. Identifico o que está freando seus resultados e as maiores oportunidades de crescimento.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 2</span>
+          <div class="fase-card-ghost">2</div>
+          <h3 class="fase-title">Estudo do Público-Alvo</h3>
+          <p class="fase-desc">Mapeamos com precisão quem é seu cliente ideal: comportamentos, dores, desejos e os melhores momentos para impactá-lo com o anúncio certo.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 3</span>
+          <div class="fase-card-ghost">3</div>
+          <h3 class="fase-title">Estratégia Personalizada</h3>
+          <p class="fase-desc">Crio um plano de ação sob medida: escolha de plataformas, definição de públicos, criativos e orçamento otimizado para o seu objetivo.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 4</span>
+          <div class="fase-card-ghost">4</div>
+          <h3 class="fase-title">Criação dos Criativos</h3>
+          <p class="fase-desc">Desenvolvemos os anúncios com copywriting persuasivo e elementos visuais de alta conversão, testando formatos que geram mais engajamento.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 5</span>
+          <div class="fase-card-ghost">5</div>
+          <h3 class="fase-title">Lançamento das Campanhas</h3>
+          <p class="fase-desc">Ativamos as campanhas com configuração técnica impecável: pixel instalado, eventos rastreados e segmentações ajustadas para gerar dados do primeiro dia.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 6</span>
+          <div class="fase-card-ghost">6</div>
+          <h3 class="fase-title">Otimização Contínua</h3>
+          <p class="fase-desc">Monitoro e otimizo as campanhas diariamente: corto o que não performa, escalo o que funciona e faço ajustes finos para maximizar cada real investido.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 7</span>
+          <div class="fase-card-ghost">7</div>
+          <h3 class="fase-title">Relatório & Escala</h3>
+          <p class="fase-desc">Você recebe relatórios claros e acompanha o crescimento em tempo real. Com os dados em mãos, escalamos o investimento de forma segura e previsível.</p>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-num">02</div>
-        <h3 class="step-title">Estratégia Personalizada</h3>
-        <p class="step-desc">Crio um plano de ação sob medida: escolha de plataformas, definição de públicos, criativos e orçamento otimizado para o seu objetivo.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <h3 class="step-title">Gestão e Escala</h3>
-        <p class="step-desc">Implemento, monitoro e otimizo suas campanhas continuamente. Você recebe relatórios claros e acompanha o crescimento em tempo real.</p>
+      <!-- SET 2 — duplicado para loop seamless -->
+      <div class="fase-loop-set" aria-hidden="true">
+        <div class="fase-card">
+          <span class="fase-label">Fase 1</span>
+          <div class="fase-card-ghost">1</div>
+          <h3 class="fase-title">Diagnóstico Gratuito</h3>
+          <p class="fase-desc">Conversamos sobre seu negócio, metas e desafios atuais. Identifico o que está freando seus resultados e as maiores oportunidades de crescimento.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 2</span>
+          <div class="fase-card-ghost">2</div>
+          <h3 class="fase-title">Estudo do Público-Alvo</h3>
+          <p class="fase-desc">Mapeamos com precisão quem é seu cliente ideal: comportamentos, dores, desejos e os melhores momentos para impactá-lo com o anúncio certo.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 3</span>
+          <div class="fase-card-ghost">3</div>
+          <h3 class="fase-title">Estratégia Personalizada</h3>
+          <p class="fase-desc">Crio um plano de ação sob medida: escolha de plataformas, definição de públicos, criativos e orçamento otimizado para o seu objetivo.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 4</span>
+          <div class="fase-card-ghost">4</div>
+          <h3 class="fase-title">Criação dos Criativos</h3>
+          <p class="fase-desc">Desenvolvemos os anúncios com copywriting persuasivo e elementos visuais de alta conversão, testando formatos que geram mais engajamento.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 5</span>
+          <div class="fase-card-ghost">5</div>
+          <h3 class="fase-title">Lançamento das Campanhas</h3>
+          <p class="fase-desc">Ativamos as campanhas com configuração técnica impecável: pixel instalado, eventos rastreados e segmentações ajustadas para gerar dados do primeiro dia.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 6</span>
+          <div class="fase-card-ghost">6</div>
+          <h3 class="fase-title">Otimização Contínua</h3>
+          <p class="fase-desc">Monitoro e otimizo as campanhas diariamente: corto o que não performa, escalo o que funciona e faço ajustes finos para maximizar cada real investido.</p>
+        </div>
+        <div class="fase-card">
+          <span class="fase-label">Fase 7</span>
+          <div class="fase-card-ghost">7</div>
+          <h3 class="fase-title">Relatório & Escala</h3>
+          <p class="fase-desc">Você recebe relatórios claros e acompanha o crescimento em tempo real. Com os dados em mãos, escalamos o investimento de forma segura e previsível.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -860,98 +1003,136 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
   cycleAll();
 })();
 
+
 // ==========================================
-// HERO GEO CANVAS - 3D Geometric Animation
+// FASE LOOP — pausa ao hover, retoma ao sair
 // ==========================================
 (function(){
-  const canvas = document.getElementById('heroGeoCanvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const BLUE = 'rgba(26,86,219,';
-  let W,H,cx,cy,t=0;
+  const track = document.getElementById('faseLoopTrack');
+  if(!track) return;
+  track.addEventListener('mouseenter',()=>track.style.animationPlayState='paused');
+  track.addEventListener('mouseleave',()=>track.style.animationPlayState='running');
+})();
 
-  function resize(){
-    W=canvas.width=canvas.offsetWidth;
-    H=canvas.height=canvas.offsetHeight;
-    cx=W/2; cy=H/2;
+// ==========================================
+// SERVIÇOS — CARROSSEL 3D
+// ==========================================
+(function(){
+  const carousel = document.getElementById('svcCarousel');
+  const scene    = document.getElementById('svcScene');
+  if(!carousel || !scene) return;
+
+  const cards  = [0,1,2,3].map(i => document.getElementById('svc-'+i));
+
+  // ── Timing (MUITO lento para o usuário ver bem) ──────────────
+  const T_SPIN       = 1100;  // rotação 90°
+  const T_ILLUMINATE =  320;  // ilumina antes do fim
+  const T_POP        =  560;  // avança em direção ao viewer
+  const T_HOLD       = 5000;  // pausa com card na frente (5s)
+  const T_RETRACT    =  480;  // retrai
+
+  let currentFace = 0;
+  let baseAngle   = 0;
+  let busy        = false;
+  let autoId      = null;
+
+  // ── Easing ──────────────────────────────────────────────────
+  function easeIO(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  // ── Tween genérico ──────────────────────────────────────────
+  function tween(from, to, dur, tick, done){
+    const t0 = performance.now();
+    (function frame(now){
+      const raw = Math.min((now-t0)/dur, 1);
+      tick(from + (to-from)*easeIO(raw));
+      if(raw < 1) requestAnimationFrame(frame);
+      else if(done) done();
+    })(performance.now());
   }
-  resize();
-  window.addEventListener('resize',resize,{passive:true});
 
-  // Project 3D point to 2D
-  function proj(x,y,z,fov,ox,oy){
-    const f=fov/(fov+z);
-    return {x:ox+x*f, y:oy+y*f, s:f};
-  }
+  // ── Aplica transform: Translate Z PRIMEIRO, depois Rotate Y para evitar deslocamento lateral 
+  function applyT(rotY, tz){ carousel.style.transform=`translateZ(${tz}px) rotateY(${rotY}deg)`; }
 
-  // Draw wireframe cube
-  function drawCube(ox,oy,size,rx,ry,rz,alpha){
-    const verts=[
-      [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
-      [-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]
-    ].map(([x,y,z])=>{
-      // Rotate X
-      const y1=y*Math.cos(rx)-z*Math.sin(rx), z1=y*Math.sin(rx)+z*Math.cos(rx);
-      // Rotate Y
-      const x2=x*Math.cos(ry)+z1*Math.sin(ry), z2=-x*Math.sin(ry)+z1*Math.cos(ry);
-      // Rotate Z
-      const x3=x2*Math.cos(rz)-y1*Math.sin(rz), y3=x2*Math.sin(rz)+y1*Math.cos(rz);
-      return [x3*size,y3*size,z2*size];
+  // ── Atualiza front/back ──────────────────────────────────────
+  function setFront(f){
+    cards.forEach((c,i)=>{
+      c.classList.toggle('is-front', i===f);
+      c.classList.toggle('is-back',  i!==f);
     });
-    const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
-    const fov=400;
-    ctx.strokeStyle=BLUE+alpha+')';
-    ctx.lineWidth=1.2;
-    edges.forEach(([a,b])=>{
-      const pa=proj(verts[a][0],verts[a][1],verts[a][2],fov,ox,oy);
-      const pb=proj(verts[b][0],verts[b][1],verts[b][2],fov,ox,oy);
-      ctx.beginPath();
-      ctx.moveTo(pa.x,pa.y);
-      ctx.lineTo(pb.x,pb.y);
-      ctx.stroke();
+  }
+
+  // ── Ciclo completo ───────────────────────────────────────────
+  function runCycle(){
+    if(busy) return;
+    busy = true;
+    const next = (currentFace+1)%4;
+    const target = baseAngle - 90;
+
+    // ilumina antes de terminar de girar
+    const illTimer = setTimeout(()=>setFront(next), T_SPIN - T_ILLUMINATE);
+
+    // 1. Gira 90°
+    tween(baseAngle, target, T_SPIN, v=>applyT(v,0), ()=>{
+      baseAngle = target;
+      currentFace = next;
+      setFront(currentFace);
+
+      // 2. Pop — avança
+      tween(0, 80, T_POP, z=>applyT(baseAngle,z), ()=>{
+
+        // 3. Segura 5 segundos
+        autoId = setTimeout(()=>{
+
+          // 4. Retrai
+          tween(80, 0, T_RETRACT, z=>applyT(baseAngle,z), ()=>{
+            busy = false;
+            runCycle();
+          });
+        }, T_HOLD);
+      });
     });
   }
 
-  function drawParticles(){
-    // Small drifting dots
-    const seed=42;
-    for(let i=0;i<18;i++){
-      const px=cx+Math.sin(t*0.3+i*1.3)*W*0.4;
-      const py=cy+Math.cos(t*0.25+i*1.7)*H*0.4;
-      const a=0.08+0.08*Math.sin(t+i);
-      ctx.fillStyle=BLUE+a+')';
-      ctx.beginPath();
-      ctx.arc(px,py,1.5+Math.sin(t*0.5+i),0,Math.PI*2);
-      ctx.fill();
+  // ── Kick-off ─────────────────────────────────────────────────
+  setFront(0);
+  tween(0, 80, T_POP, z=>applyT(0,z), ()=>{
+    autoId = setTimeout(()=>{
+      tween(80, 0, T_RETRACT, z=>applyT(0,z), ()=>{
+        busy = false;
+        runCycle();
+      });
+    }, T_HOLD);
+  });
+
+  // ── Drag / Swipe ─────────────────────────────────────────────
+  let dragX = 0, dragging = false, dragMoved = false;
+
+  function onDragStart(x){ if(busy) return; dragging=true; dragX=x; dragMoved=false; }
+  function onDragEnd(x){
+    if(!dragging) return;
+    dragging = false;
+    const dx = x - dragX;
+    if(Math.abs(dx) > 40){
+      clearTimeout(autoId);
+      busy = false;
+      const dir = dx < 0 ? 1 : -1;  // arrasta esquerda → próximo
+      const next = ((currentFace+dir)%4+4)%4;
+      const tgt  = baseAngle - 90*dir;
+      busy = true;
+      setTimeout(()=>setFront(next), T_SPIN-T_ILLUMINATE);
+      tween(baseAngle,tgt,T_SPIN,v=>applyT(v,0),()=>{
+        baseAngle=tgt; currentFace=next; setFront(next);
+        tween(0,80,T_POP,z=>applyT(baseAngle,z),()=>{
+          autoId=setTimeout(()=>tween(80,0,T_RETRACT,z=>applyT(baseAngle,z),()=>{busy=false;runCycle();}),T_HOLD);
+        });
+      });
     }
   }
 
-  function frame(){
-    t+=0.008;
-    ctx.clearRect(0,0,W,H);
-
-    // Background radial glow
-    const grad=ctx.createRadialGradient(cx,cy*0.6,0,cx,cy*0.6,Math.max(W,H)*0.55);
-    grad.addColorStop(0,'rgba(26,86,219,0.08)');
-    grad.addColorStop(1,'rgba(26,86,219,0)');
-    ctx.fillStyle=grad;
-    ctx.fillRect(0,0,W,H);
-
-    // Main rotating cube (center right)
-    drawCube(cx*1.2,cy*0.55,90,t*0.4,t*0.55,t*0.2,0.45);
-
-    // Second cube (top left)
-    drawCube(cx*0.35,cy*0.25,48,-t*0.5,t*0.7,-t*0.2,0.35);
-
-    // Third cube (bottom left)
-    drawCube(cx*0.55,cy*0.85,32,-t*0.3,-t*0.4,t*0.5,0.25);
-
-    // Particles
-    drawParticles();
-
-    requestAnimationFrame(frame);
-  }
-  frame();
+  scene.addEventListener('mousedown', e=>onDragStart(e.clientX));
+  window.addEventListener('mouseup',  e=>onDragEnd(e.clientX));
+  scene.addEventListener('touchstart',e=>onDragStart(e.touches[0].clientX),{passive:true});
+  scene.addEventListener('touchend',  e=>onDragEnd(e.changedTouches[0].clientX),{passive:true});
 })();
 </script>
 </body>
