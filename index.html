@@ -50,6 +50,10 @@ ul{list-style:none}
 .platforms-mosaic-inner{animation-timing-function:linear!important}
 .fase-loop-track{animation-timing-function:linear!important}
 .testimonials-track{animation-timing-function:linear!important}
+/* Android/high-refresh-rate: durations definidas por JS para garantir consistência */
+.js-durations-ready .platforms-mosaic-inner{animation-duration:var(--scroll-dur-mosaic,40s)!important}
+.js-durations-ready .fase-loop-track{animation-duration:var(--scroll-dur-fase,48s)!important}
+.js-durations-ready .testimonials-track{animation-duration:var(--scroll-dur-test,52s)!important}
 
 /* NOTIFICAÇÕES — sem backdrop-filter (evita repaint caro em elementos animados) */
 .notif-popup{position:absolute;z-index:10;background:rgba(18,18,22,0.97);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;min-width:220px;max-width:260px;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;pointer-events:none;will-change:opacity,transform}
@@ -97,23 +101,24 @@ ul{list-style:none}
 .hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;align-items:center;justify-content:center;padding:60px 20px 80px;text-align:center}
 .hero-content{max-width:680px}
 @media(min-width:1000px){#hero{flex-direction:row;align-items:stretch}.hero-inner{flex:1;padding:80px 56px;text-align:left;align-items:flex-start;max-width:50%;justify-content:center}.hero-content{max-width:100%}.hero-img-area{flex:1;max-width:50%;display:flex;align-items:flex-end;justify-content:center;padding:0 24px 0 0;overflow:hidden}}
-.hero-tag{display:inline-block;font-size:.6875rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-accent);background:var(--color-accent-subtle);border:1px solid var(--color-accent-border);border-radius:3px;padding:3px 10px;margin-bottom:20px;animation:fadeUp .7s var(--ease-bounce) .05s both}
-.hero-h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--color-text-primary);margin-bottom:20px;animation:fadeUp .9s var(--ease-bounce) .2s both}
+/* Hero animations — durações conservadoras para funcionar bem em qualquer Hz */
+.hero-tag{display:inline-block;font-size:.6875rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-accent);background:var(--color-accent-subtle);border:1px solid var(--color-accent-border);border-radius:3px;padding:3px 10px;margin-bottom:20px;animation:fadeUpSimple 0.8s ease-out 0.1s both}
+.hero-h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--color-text-primary);margin-bottom:20px;animation:fadeUpSimple 0.9s ease-out 0.25s both}
 .hero-h1 .metal{background:var(--gradient-metal-light);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-h1 em{font-style:normal;color:var(--color-accent)}
-.hero-sub{font-size:1rem;line-height:1.65;color:var(--color-text-muted);margin-bottom:32px;max-width:480px;animation:fadeUp .7s var(--ease-bounce) .35s both}
+.hero-sub{font-size:1rem;line-height:1.65;color:var(--color-text-muted);margin-bottom:32px;max-width:480px;animation:fadeUpSimple 0.8s ease-out 0.4s both}
 @media(min-width:1000px){.hero-sub{margin-left:0}}
-.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;animation:scaleIn .7s var(--ease-bounce) .55s both}
+.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUpSimple 0.8s ease-out 0.55s both}
 @media(min-width:1000px){.hero-ctas{justify-content:flex-start}}
-.hero-note{margin-top:16px;font-size:.75rem;color:var(--color-text-disabled);display:flex;align-items:center;gap:6px;justify-content:center;animation:fadeUp .5s var(--ease-bounce) .7s both}
+.hero-note{margin-top:16px;font-size:.75rem;color:var(--color-text-disabled);display:flex;align-items:center;gap:6px;justify-content:center;animation:fadeUpSimple 0.7s ease-out 0.7s both}
 @media(min-width:1000px){.hero-note{justify-content:flex-start}}
 /* Hero image: flush de baixo, sem padding bottom */
 .hero-img-wrap{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;height:100%;overflow:visible}
 .hero-img-wrap::before{content:'';position:absolute;bottom:0;left:10%;right:10%;height:160px;background:linear-gradient(to top,rgba(17,17,17,0.7) 0%,rgba(17,17,17,0.15) 55%,transparent 100%);pointer-events:none;z-index:2}
 .hero-img-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 50% 30%,rgba(26,86,219,0.07) 0%,transparent 75%);pointer-events:none;z-index:0}
-.hero-img-wrap img{position:relative;z-index:1;width:100%;max-width:520px;height:auto;object-fit:contain;object-position:bottom;display:block;filter:drop-shadow(0 2px 20px rgba(26,86,219,0.15));animation:scaleIn .9s var(--ease-bounce) .3s both;margin-bottom:0}
+.hero-img-wrap img{position:relative;z-index:1;width:100%;max-width:520px;height:auto;object-fit:contain;object-position:bottom;display:block;filter:drop-shadow(0 2px 20px rgba(26,86,219,0.15));animation:fadeUpSimple 1s ease-out 0.35s both;margin-bottom:0}
 @media(max-width:999px){.hero-img-wrap{max-width:380px;margin:32px auto 0;height:340px}.hero-img-wrap img{max-height:340px;object-fit:contain;object-position:bottom}}
-.stat-row{display:flex;gap:32px;flex-wrap:wrap;margin-top:36px;animation:fadeUp .7s var(--ease-bounce) .6s both}
+.stat-row{display:flex;gap:32px;flex-wrap:wrap;margin-top:36px;animation:fadeUpSimple 0.8s ease-out 0.65s both}
 @media(min-width:1000px){.stat-row{justify-content:flex-start}}
 .stat-item{text-align:center}
 @media(min-width:1000px){.stat-item{text-align:left}}
@@ -134,7 +139,7 @@ ul{list-style:none}
 .platforms-mosaic::before,.platforms-mosaic::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
 .platforms-mosaic::before{left:0;background:linear-gradient(to right,var(--color-bg-page),transparent)}
 .platforms-mosaic::after{right:0;background:linear-gradient(to left,var(--color-bg-page),transparent)}
-.platforms-mosaic-inner{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);animation:mosaicScroll 32s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
+.platforms-mosaic-inner{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);animation:mosaicScroll 40s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
 .platforms-mosaic-inner:hover{animation-play-state:paused}
 .platforms-mosaic-set{display:flex;gap:20px;padding:0 10px}
 .platform-tile{display:inline-flex;flex-direction:row;align-items:center;gap:16px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:16px;padding:18px 28px;min-width:190px;transition:border-color .3s var(--ease-out),box-shadow .3s var(--ease-out),transform .3s var(--ease-bounce);cursor:default;flex-shrink:0}
@@ -204,17 +209,13 @@ ul{list-style:none}
 
 /* COMO FUNCIONA — FASE LOOP INFINITO */
 @keyframes faseScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
-/* faseCardIn: sem rotateY/perspective — apenas translateY+opacity (composited) */
-@keyframes faseCardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .fase-loop-outer{position:relative;overflow:hidden;padding:24px 0 48px;contain:layout style}
 .fase-loop-outer::before,.fase-loop-outer::after{content:'';position:absolute;top:0;bottom:0;width:160px;z-index:3;pointer-events:none}
 .fase-loop-outer::before{left:0;background:linear-gradient(to right,var(--color-bg-section) 20%,transparent)}
 .fase-loop-outer::after{right:0;background:linear-gradient(to left,var(--color-bg-section) 20%,transparent)}
-.fase-loop-track{display:flex;width:max-content;gap:20px;padding:16px 0;will-change:transform;transform:translate3d(0,0,0);animation:faseScroll 36s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
+.fase-loop-track{display:flex;width:max-content;gap:20px;padding:16px 0;will-change:transform;transform:translate3d(0,0,0);animation:faseScroll 48s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
 .fase-loop-track:hover{animation-play-state:paused}
 .fase-loop-set{display:flex;gap:20px;padding:0 10px}
-/* Animação de entrada apenas no SET 1 (não no duplicado) */
-.fase-loop-set:first-child .fase-card{animation:faseCardIn .7s var(--ease-bounce) both}
 .fase-card{flex-shrink:0;width:300px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:18px;padding:32px 26px 28px;position:relative;overflow:hidden;transition:border-color .4s var(--ease-out),box-shadow .4s var(--ease-out),transform .4s var(--ease-bounce);cursor:default}
 .fase-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--color-gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.16,1,0.3,1)}
 .fase-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(26,86,219,0.07),transparent);opacity:0;transition:opacity .4s;pointer-events:none}
@@ -275,15 +276,15 @@ ul{list-style:none}
 .footer-link:hover{color:var(--color-text-muted)}
 
 /* REVEAL — apenas translateY+opacity (composited-only, sem layout thrashing) */
-[data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .65s var(--ease-bounce),transform .65s var(--ease-bounce)}
+[data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .7s ease-out,transform .7s ease-out}
 [data-reveal].revealed{opacity:1;transform:translateY(0)}
-[data-reveal-group]>*{opacity:0;transform:translateY(22px);transition:opacity .55s var(--ease-bounce),transform .55s var(--ease-bounce)}
+[data-reveal-group]>*{opacity:0;transform:translateY(22px);transition:opacity .6s ease-out,transform .6s ease-out}
 [data-reveal-group].revealed>*:nth-child(1){transition-delay:0ms}
-[data-reveal-group].revealed>*:nth-child(2){transition-delay:80ms}
-[data-reveal-group].revealed>*:nth-child(3){transition-delay:160ms}
-[data-reveal-group].revealed>*:nth-child(4){transition-delay:240ms}
-[data-reveal-group].revealed>*:nth-child(5){transition-delay:320ms}
-[data-reveal-group].revealed>*:nth-child(6){transition-delay:400ms}
+[data-reveal-group].revealed>*:nth-child(2){transition-delay:100ms}
+[data-reveal-group].revealed>*:nth-child(3){transition-delay:200ms}
+[data-reveal-group].revealed>*:nth-child(4){transition-delay:300ms}
+[data-reveal-group].revealed>*:nth-child(5){transition-delay:400ms}
+[data-reveal-group].revealed>*:nth-child(6){transition-delay:500ms}
 [data-reveal-group].revealed>*{opacity:1;transform:translateY(0)}
 
 /* hero-geo-canvas removed */
@@ -293,7 +294,7 @@ ul{list-style:none}
 .testimonials-carousel-wrap::before,.testimonials-carousel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
 .testimonials-carousel-wrap::before{left:0;background:linear-gradient(to right,var(--color-bg-page),transparent)}
 .testimonials-carousel-wrap::after{right:0;background:linear-gradient(to left,var(--color-bg-page),transparent)}
-.testimonials-track{display:flex;width:max-content;animation:mosaicScroll 40s linear infinite;gap:20px;padding:4px 0;will-change:transform;transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
+.testimonials-track{display:flex;width:max-content;animation:mosaicScroll 52s linear infinite;gap:20px;padding:4px 0;will-change:transform;transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
 .testimonials-track:hover{animation-play-state:paused}
 .testimonial-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:16px;padding:24px 28px;width:300px;flex-shrink:0;position:relative;overflow:hidden;transition:border-color .22s,transform .22s}
 .testimonial-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-gradient-accent);opacity:0;transition:opacity .22s}
@@ -307,26 +308,17 @@ ul{list-style:none}
 .testimonial-author{font-size:.8125rem;font-weight:700;color:var(--color-text-primary)}
 .testimonial-role{font-size:.75rem;color:var(--color-text-muted);margin-top:2px}
 
-/* Keyframes simplificados — apenas propriedades composited (transform+opacity) */
+/* Keyframes — apenas propriedades composited (transform+opacity) */
 /* Sem rotateX/Y/perspective para evitar repaint em Android WebView */
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUpSimple{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes scaleIn{from{opacity:0;transform:scale(0.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fadeUpSimple{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes glowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.75;transform:scale(1.06)}}
 @keyframes notifIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}[data-reveal],[data-reveal-group]>*{opacity:1!important;transform:none!important}}
 
-/* ===== FIXES MOBILE/ANDROID/iOS ===== */
-/* Garante animações hero simples em todos os dispositivos */
-.hero-tag,.hero-h1,.hero-sub,.hero-ctas,.hero-note,.stat-row,.hero-img-wrap img{
-  animation-name:fadeUpSimple!important;
-}
-@media(max-width:999px){
-  /* Scrolling loops: velocidade adaptada pra tela menor */
-  .platforms-mosaic-inner{animation-duration:24s}
-  .fase-loop-track{animation-duration:28s}
-  .testimonials-track{animation-duration:30s}
-}
+/* ===== MOSAIC: base durations — JS override via CSS vars para mobile ===== */
+.platforms-mosaic-inner{animation:mosaicScroll 40s linear infinite;will-change:transform;transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
 
 /* iOS safe area */
 @supports(padding:max(0px)){
@@ -986,20 +978,6 @@ ul{list-style:none}
 
 
 
-<!-- FOOTER -->
-<footer id="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand"><img src="Gemini_Generated_Image_ltdzurltdzurltdz-Photoroom-Photoroom.png" alt="Falk Company" style="height:40px;width:auto;opacity:.7;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7"></div>
-      <div class="footer-copy">© 2025 Matheus Falkoski. Todos os direitos reservados.</div>
-      <div class="footer-links">
-        <a href="https://wa.me/5551991855705" target="_blank" class="footer-link">WhatsApp</a>
-        <a href="mailto:matheus.falkoski20@gmail.com" class="footer-link">E-mail</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
 <script>
 // Header scroll
 window.addEventListener('scroll',()=>{
@@ -1016,7 +994,7 @@ document.querySelectorAll('.faq-question').forEach(btn=>{
   });
 });
 
-// Scroll reveal 3D
+// Scroll reveal
 const observer=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -1050,6 +1028,34 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
   cycleAll();
 })();
 
+// ==========================================
+// SCROLL LOOP DURATIONS — corrige velocidade no Android (telas 90/120Hz)
+// ==========================================
+(function(){
+  const ua = navigator.userAgent;
+  const isAndroid = /Android/i.test(ua);
+  const isMobile  = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+
+  let durMosaic = 40, durFase = 48, durTest = 52;
+  if(isMobile){ durMosaic=55; durFase=65; durTest=70; }
+  if(isAndroid){ durMosaic=60; durFase=72; durTest=78; }
+
+  const root = document.documentElement;
+  root.style.setProperty('--scroll-dur-mosaic', durMosaic+'s');
+  root.style.setProperty('--scroll-dur-fase',   durFase+'s');
+  root.style.setProperty('--scroll-dur-test',   durTest+'s');
+  document.body.classList.add('js-durations-ready');
+
+  function applyDur(sel, dur){
+    const el = document.querySelector(sel);
+    if(el) el.style.animationDuration = dur+'s';
+  }
+  requestAnimationFrame(function(){
+    applyDur('.platforms-mosaic-inner', durMosaic);
+    applyDur('.fase-loop-track',        durFase);
+    applyDur('.testimonials-track',     durTest);
+  });
+})();
 
 // ==========================================
 // FASE LOOP — pausa ao hover, retoma ao sair
@@ -1071,42 +1077,37 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
 
   const cards  = [0,1,2,3].map(i => document.getElementById('svc-'+i));
 
-  // ── Timing (MUITO lento para o usuário ver bem) ──────────────
-  const T_SPIN       = 1100;  // rotação 90°
-  const T_ILLUMINATE =  320;  // ilumina antes do fim
-  const T_POP        =  560;  // avança em direção ao viewer
-  const T_HOLD       = 5000;  // pausa com card na frente (5s)
-  const T_RETRACT    =  480;  // retrai
+  const T_SPIN       = 1100;
+  const T_ILLUMINATE =  320;
+  const T_POP        =  560;
+  const T_HOLD       = 5000;
+  const T_RETRACT    =  480;
 
   let currentFace = 0;
   let baseAngle   = 0;
   let busy        = false;
   let autoId      = null;
 
-  // ── Easing ──────────────────────────────────────────────────
   function easeIO(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
 
-  // ── Tween genérico — SEMPRE via rAF (nunca síncrono no 1º frame) ─────────
-  // Nota: no Android WebView, executar o 1º tick fora do rAF cria um delta
-  // de quase 0ms, fazendo a animação parecer instantânea ou acelerada.
   function tween(from, to, dur, tick, done){
     let rafId;
     let t0 = -1;
+    const maxDelta = dur * 1.5;
     function frame(ts){
-      if(t0 < 0) t0 = ts;            // captura timestamp real do 1º frame rAF
-      const raw = Math.min((ts - t0) / dur, 1);
+      if(t0 < 0) t0 = ts;
+      const delta = Math.min(ts - t0, maxDelta);
+      const raw   = Math.min(delta / dur, 1);
       tick(from + (to - from) * easeIO(raw));
       if(raw < 1){ rafId = requestAnimationFrame(frame); }
       else if(done) done();
     }
-    rafId = requestAnimationFrame(frame); // 1º tick sempre via rAF
+    rafId = requestAnimationFrame(frame);
     return function cancel(){ if(rafId) cancelAnimationFrame(rafId); };
   }
 
-  // ── Aplica transform: Translate Z PRIMEIRO, depois Rotate Y para evitar deslocamento lateral 
   function applyT(rotY, tz){ carousel.style.transform=`translateZ(${tz}px) rotateY(${rotY}deg)`; }
 
-  // ── Atualiza front/back ──────────────────────────────────────
   function setFront(f){
     cards.forEach((c,i)=>{
       c.classList.toggle('is-front', i===f);
@@ -1114,29 +1115,20 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
     });
   }
 
-  // ── Ciclo completo ───────────────────────────────────────────
   function runCycle(){
     if(busy) return;
     busy = true;
     const next = (currentFace+1)%4;
     const target = baseAngle - 90;
 
-    // ilumina antes de terminar de girar
-    const illTimer = setTimeout(()=>setFront(next), T_SPIN - T_ILLUMINATE);
+    setTimeout(()=>setFront(next), T_SPIN - T_ILLUMINATE);
 
-    // 1. Gira 90°
     tween(baseAngle, target, T_SPIN, v=>applyT(v,0), ()=>{
       baseAngle = target;
       currentFace = next;
       setFront(currentFace);
-
-      // 2. Pop — avança
       tween(0, 80, T_POP, z=>applyT(baseAngle,z), ()=>{
-
-        // 3. Segura 5 segundos
         autoId = setTimeout(()=>{
-
-          // 4. Retrai
           tween(80, 0, T_RETRACT, z=>applyT(baseAngle,z), ()=>{
             busy = false;
             runCycle();
@@ -1146,7 +1138,6 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
     });
   }
 
-  // ── Kick-off ─────────────────────────────────────────────────
   setFront(0);
   tween(0, 80, T_POP, z=>applyT(0,z), ()=>{
     autoId = setTimeout(()=>{
@@ -1157,10 +1148,9 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
     }, T_HOLD);
   });
 
-  // ── Drag / Swipe ─────────────────────────────────────────────
-  let dragX = 0, dragging = false, dragMoved = false;
+  let dragX = 0, dragging = false;
 
-  function onDragStart(x){ if(busy) return; dragging=true; dragX=x; dragMoved=false; }
+  function onDragStart(x){ if(busy) return; dragging=true; dragX=x; }
   function onDragEnd(x){
     if(!dragging) return;
     dragging = false;
@@ -1168,7 +1158,7 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
     if(Math.abs(dx) > 40){
       clearTimeout(autoId);
       busy = false;
-      const dir = dx < 0 ? 1 : -1;  // arrasta esquerda → próximo
+      const dir = dx < 0 ? 1 : -1;
       const next = ((currentFace+dir)%4+4)%4;
       const tgt  = baseAngle - 90*dir;
       busy = true;
@@ -1184,11 +1174,24 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
 
   scene.addEventListener('mousedown', e=>onDragStart(e.clientX));
   window.addEventListener('mouseup',  e=>onDragEnd(e.clientX));
-  // Touch events: usa {passive:true} para não bloquear scroll do browser no Android
   scene.addEventListener('touchstart',e=>{ e.stopPropagation(); onDragStart(e.touches[0].clientX); },{passive:true});
   scene.addEventListener('touchend',  e=>{ onDragEnd(e.changedTouches[0].clientX); },{passive:true});
-  scene.addEventListener('touchmove', e=>{ /* sem preventDefault — deixa browser decidir */ },{passive:true});
+  scene.addEventListener('touchmove', e=>{ },{passive:true});
 })();
 </script>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand"><img src="Gemini_Generated_Image_ltdzurltdzurltdz-Photoroom-Photoroom.png" alt="Falk Company" style="height:40px;width:auto;opacity:.7;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7"></div>
+      <div class="footer-copy">© 2025 Matheus Falkoski. Todos os direitos reservados.</div>
+      <div class="footer-links">
+        <a href="https://wa.me/5551991855705" target="_blank" class="footer-link">WhatsApp</a>
+        <a href="mailto:matheus.falkoski20@gmail.com" class="footer-link">E-mail</a>
+      </div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
