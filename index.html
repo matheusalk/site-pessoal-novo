@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Matheus Falkoski | Gestor de Tráfego Pago</title>
 <meta name="description" content="Aumente suas vendas com tráfego pago estratégico. Matheus Falkoski — gestor especialista em campanhas que geram resultados reais.">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -11,8 +11,8 @@
 <style>
 :root{--color-bg-page:#0C0C0C;--color-bg-primary:#111111;--color-bg-section:#161616;--color-bg-card:#1C1C1C;--color-bg-elevated:#252525;--metal-100:#F0F0F0;--metal-200:#D8D8D8;--gradient-metal-light:linear-gradient(135deg,#FFFFFF 0%,#D0D0D0 40%,#FFFFFF 70%,#B0B0B0 100%);--color-accent:#1A56DB;--color-accent-hover:#1648C4;--color-accent-subtle:rgba(26,86,219,0.12);--color-accent-border:rgba(26,86,219,0.35);--color-accent-glow:rgba(26,86,219,0.25);--color-text-primary:#F4F4F4;--color-text-secondary:#CACACA;--color-text-muted:#888888;--color-text-disabled:#454545;--color-border-default:rgba(255,255,255,0.07);--color-border-strong:rgba(255,255,255,0.13);--color-gradient-accent:linear-gradient(135deg,#1A56DB,#1240B0);--font-display:'Montserrat',sans-serif;--font-body:'Montserrat',sans-serif;--shadow-accent:0 0 24px rgba(26,86,219,0.3);--shadow-accent-strong:0 0 40px rgba(26,86,219,0.45);--shadow-xl:0 16px 48px rgba(0,0,0,0.7);--ease-out:cubic-bezier(0,0,0.2,1);--ease-bounce:cubic-bezier(0.16,1,0.3,1);--nav-height:88px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{background:var(--color-bg-page);color:var(--color-text-secondary);font-family:var(--font-body);font-size:1rem;line-height:1.5;overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--color-bg-page);color:var(--color-text-secondary);font-family:var(--font-body);font-size:1rem;line-height:1.5;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 ul{list-style:none}
@@ -46,6 +46,10 @@ ul{list-style:none}
 
 /* MOSAIC SCROLL — GPU-composited via translate3d, no layout thrashing */
 @keyframes mosaicScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
+/* Garante timing linear preciso em todos os dispositivos */
+.platforms-mosaic-inner{animation-timing-function:linear!important}
+.fase-loop-track{animation-timing-function:linear!important}
+.testimonials-track{animation-timing-function:linear!important}
 
 /* NOTIFICAÇÕES */
 .notif-popup{position:absolute;z-index:10;background:rgba(22,22,22,0.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;min-width:220px;max-width:260px;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s;pointer-events:none}
@@ -55,10 +59,26 @@ ul{list-style:none}
 .notif-msg{font-size:.8125rem;font-weight:700;color:var(--color-text-primary);line-height:1.2}
 .notif-sub{font-size:.75rem;color:var(--color-text-muted);margin-top:2px}
 .notif-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;flex-shrink:0;margin-left:auto;box-shadow:0 0 6px rgba(34,197,94,0.7)}
+/* Desktop: posições originais */
 .notif-1{bottom:28%;left:10px}
 .notif-2{top:22%;right:10px}
 .notif-3{bottom:10%;right:10px}
 .notif-4{top:42%;left:10px}
+/* Mobile: notificações menores e reposicionadas para não cobrir o rosto */
+@media(max-width:999px){
+  .notif-popup{min-width:170px;max-width:200px;padding:7px 10px;gap:7px;border-radius:10px}
+  .notif-icon{width:28px;height:28px;border-radius:6px}
+  .notif-icon svg{width:15px;height:15px}
+  .notif-platform{font-size:.55rem}
+  .notif-msg{font-size:.72rem}
+  .notif-sub{font-size:.65rem}
+  .notif-dot{width:6px;height:6px}
+  /* Empurra notificações para as bordas, longe do rosto */
+  .notif-1{bottom:8%;left:4px}
+  .notif-2{top:8%;right:4px}
+  .notif-3{bottom:2%;right:4px;display:none} /* esconde 3ª em telas pequenas */
+  .notif-4{top:30%;left:4px;display:none}  /* esconde 4ª em telas pequenas */
+}
 
 /* SECTIONS */
 .section{padding:80px 0}
@@ -114,7 +134,7 @@ ul{list-style:none}
 .platforms-mosaic::before,.platforms-mosaic::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
 .platforms-mosaic::before{left:0;background:linear-gradient(to right,var(--color-bg-page),transparent)}
 .platforms-mosaic::after{right:0;background:linear-gradient(to left,var(--color-bg-page),transparent)}
-.platforms-mosaic-inner{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);animation:mosaicScroll 32s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.platforms-mosaic-inner{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);animation:mosaicScroll 32s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
 .platforms-mosaic-inner:hover{animation-play-state:paused}
 .platforms-mosaic-set{display:flex;gap:20px;padding:0 10px}
 .platform-tile{display:inline-flex;flex-direction:row;align-items:center;gap:16px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:16px;padding:18px 28px;min-width:190px;transition:border-color .3s var(--ease-out),box-shadow .3s var(--ease-out),transform .3s var(--ease-bounce);cursor:default;flex-shrink:0}
@@ -189,10 +209,12 @@ ul{list-style:none}
 .fase-loop-outer::before,.fase-loop-outer::after{content:'';position:absolute;top:0;bottom:0;width:160px;z-index:3;pointer-events:none}
 .fase-loop-outer::before{left:0;background:linear-gradient(to right,var(--color-bg-section) 20%,transparent)}
 .fase-loop-outer::after{right:0;background:linear-gradient(to left,var(--color-bg-section) 20%,transparent)}
-.fase-loop-track{display:flex;width:max-content;gap:20px;padding:16px 0;will-change:transform;transform:translate3d(0,0,0);animation:faseScroll 36s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fase-loop-track{display:flex;width:max-content;gap:20px;padding:16px 0;will-change:transform;transform:translate3d(0,0,0);animation:faseScroll 36s linear infinite;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
 .fase-loop-track:hover{animation-play-state:paused}
 .fase-loop-set{display:flex;gap:20px;padding:0 10px}
-.fase-card{flex-shrink:0;width:300px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:18px;padding:32px 26px 28px;position:relative;overflow:hidden;transition:border-color .4s var(--ease-out),box-shadow .4s var(--ease-out),transform .4s var(--ease-bounce);cursor:default;animation:faseCardIn .7s var(--ease-bounce) both}
+/* Animação de entrada apenas no SET 1 (não no duplicado) */
+.fase-loop-set:first-child .fase-card{animation:faseCardIn .7s var(--ease-bounce) both}
+.fase-card{flex-shrink:0;width:300px;background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:18px;padding:32px 26px 28px;position:relative;overflow:hidden;transition:border-color .4s var(--ease-out),box-shadow .4s var(--ease-out),transform .4s var(--ease-bounce);cursor:default}
 .fase-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--color-gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.16,1,0.3,1)}
 .fase-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(26,86,219,0.07),transparent);opacity:0;transition:opacity .4s;pointer-events:none}
 .fase-card-ghost{position:absolute;bottom:-14px;right:-6px;font-family:var(--font-display);font-size:8rem;font-weight:900;color:rgba(255,255,255,0.035);line-height:1;letter-spacing:-.04em;pointer-events:none;user-select:none;transition:color .4s,transform .4s var(--ease-bounce)}
@@ -270,7 +292,7 @@ ul{list-style:none}
 .testimonials-carousel-wrap::before,.testimonials-carousel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
 .testimonials-carousel-wrap::before{left:0;background:linear-gradient(to right,var(--color-bg-page),transparent)}
 .testimonials-carousel-wrap::after{right:0;background:linear-gradient(to left,var(--color-bg-page),transparent)}
-.testimonials-track{display:flex;width:max-content;animation:mosaicScroll 40s linear infinite;gap:20px;padding:4px 0}
+.testimonials-track{display:flex;width:max-content;animation:mosaicScroll 40s linear infinite;gap:20px;padding:4px 0;will-change:transform;transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden;animation-timing-function:linear}
 .testimonials-track:hover{animation-play-state:paused}
 .testimonial-card{background:var(--color-bg-card);border:1px solid var(--color-border-default);border-radius:16px;padding:24px 28px;width:300px;flex-shrink:0;position:relative;overflow:hidden;transition:border-color .22s,transform .22s}
 .testimonial-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-gradient-accent);opacity:0;transition:opacity .22s}
@@ -289,6 +311,39 @@ ul{list-style:none}
 @keyframes glowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.75;transform:scale(1.06)}}
 @keyframes notifIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}[data-reveal],[data-reveal-group]>*{opacity:1!important;transform:none!important}}
+
+/* ===== FIXES MOBILE/ANDROID/iOS ===== */
+/* Evita que animações de entrada sejam aceleradas em Android */
+@media(max-width:999px){
+  /* Remove perspectiva 3D pesada nas animações de entrada no mobile */
+  [data-reveal]{transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+  [data-reveal].revealed{transform:translateY(0)}
+  [data-reveal-group]>*{transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+  [data-reveal-group].revealed>*{transform:translateY(0)}
+  /* Corrige animações hero no mobile */
+  .hero-tag{animation:fadeUpSimple .5s ease .05s both}
+  .hero-h1{animation:fadeUpSimple .6s ease .15s both}
+  .hero-sub{animation:fadeUpSimple .5s ease .25s both}
+  .hero-ctas{animation:fadeUpSimple .5s ease .35s both}
+  .hero-note{animation:fadeUpSimple .4s ease .45s both}
+  .stat-row{animation:fadeUpSimple .5s ease .5s both}
+  .hero-img-wrap img{animation:fadeUpSimple .6s ease .2s both}
+  /* Scrolling loops: velocidade adaptada pra tela menor */
+  .platforms-mosaic-inner{animation-duration:24s}
+  .fase-loop-track{animation-duration:28s}
+  .testimonials-track{animation-duration:30s}
+}
+/* Animação simplificada para mobile (sem perspectiva 3D que causa bugs no Android WebView) */
+@keyframes fadeUpSimple{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* iOS safe area */
+@supports(padding:max(0px)){
+  #header{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+  #footer{padding-bottom:max(40px,env(safe-area-inset-bottom))}
+}
+/* Touch action: melhora scroll em Android */
+.platforms-mosaic,.fase-loop-outer,.testimonials-carousel-wrap{touch-action:pan-y}
+.servicos-scene{touch-action:none}
 </style>
 </head>
 <body>
@@ -1039,15 +1094,17 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
   // ── Easing ──────────────────────────────────────────────────
   function easeIO(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
 
-  // ── Tween genérico ──────────────────────────────────────────
+  // ── Tween genérico — usa Date.now() para consistência em Android/WebView ──
   function tween(from, to, dur, tick, done){
-    const t0 = performance.now();
-    (function frame(now){
-      const raw = Math.min((now-t0)/dur, 1);
+    const t0 = Date.now();
+    let rafId;
+    (function frame(){
+      const raw = Math.min((Date.now()-t0)/dur, 1);
       tick(from + (to-from)*easeIO(raw));
-      if(raw < 1) requestAnimationFrame(frame);
+      if(raw < 1){ rafId = requestAnimationFrame(frame); }
       else if(done) done();
-    })(performance.now());
+    })();
+    return function cancel(){ if(rafId) cancelAnimationFrame(rafId); };
   }
 
   // ── Aplica transform: Translate Z PRIMEIRO, depois Rotate Y para evitar deslocamento lateral 
@@ -1131,8 +1188,10 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
 
   scene.addEventListener('mousedown', e=>onDragStart(e.clientX));
   window.addEventListener('mouseup',  e=>onDragEnd(e.clientX));
-  scene.addEventListener('touchstart',e=>onDragStart(e.touches[0].clientX),{passive:true});
-  scene.addEventListener('touchend',  e=>onDragEnd(e.changedTouches[0].clientX),{passive:true});
+  // Touch events: usa {passive:true} para não bloquear scroll do browser no Android
+  scene.addEventListener('touchstart',e=>{ e.stopPropagation(); onDragStart(e.touches[0].clientX); },{passive:true});
+  scene.addEventListener('touchend',  e=>{ onDragEnd(e.changedTouches[0].clientX); },{passive:true});
+  scene.addEventListener('touchmove', e=>{ /* sem preventDefault — deixa browser decidir */ },{passive:true});
 })();
 </script>
 </body>
