@@ -51,8 +51,8 @@ ul{list-style:none}
 .fase-loop-track{animation-timing-function:linear!important}
 .testimonials-track{animation-timing-function:linear!important}
 
-/* NOTIFICAÇÕES */
-.notif-popup{position:absolute;z-index:10;background:rgba(22,22,22,0.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;min-width:220px;max-width:260px;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s;pointer-events:none}
+/* NOTIFICAÇÕES — sem backdrop-filter (evita repaint caro em elementos animados) */
+.notif-popup{position:absolute;z-index:10;background:rgba(18,18,22,0.97);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;min-width:220px;max-width:260px;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;pointer-events:none;will-change:opacity,transform}
 .notif-popup.show{opacity:1;transform:translateY(0)}
 .notif-icon{width:36px;height:36px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .notif-platform{font-size:.6rem;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:3px}
@@ -204,7 +204,8 @@ ul{list-style:none}
 
 /* COMO FUNCIONA — FASE LOOP INFINITO */
 @keyframes faseScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
-@keyframes faseCardIn{from{opacity:0;transform:perspective(600px) rotateY(-12deg) translateY(20px) scale(0.94)}to{opacity:1;transform:perspective(600px) rotateY(0deg) translateY(0) scale(1)}}
+/* faseCardIn: sem rotateY/perspective — apenas translateY+opacity (composited) */
+@keyframes faseCardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .fase-loop-outer{position:relative;overflow:hidden;padding:24px 0 48px;contain:layout style}
 .fase-loop-outer::before,.fase-loop-outer::after{content:'';position:absolute;top:0;bottom:0;width:160px;z-index:3;pointer-events:none}
 .fase-loop-outer::before{left:0;background:linear-gradient(to right,var(--color-bg-section) 20%,transparent)}
@@ -273,17 +274,17 @@ ul{list-style:none}
 .footer-link{font-size:.75rem;color:var(--color-text-disabled);transition:color .15s}
 .footer-link:hover{color:var(--color-text-muted)}
 
-/* REVEAL 3D */
-[data-reveal]{opacity:0;transform:perspective(800px) rotateX(18deg) translateY(40px) scale(0.97);transition:opacity .75s var(--ease-bounce),transform .75s var(--ease-bounce)}
-[data-reveal].revealed{opacity:1;transform:perspective(800px) rotateX(0deg) translateY(0) scale(1)}
-[data-reveal-group]>*{opacity:0;transform:perspective(600px) rotateX(22deg) translateY(30px) scale(0.96);transition:opacity .65s var(--ease-bounce),transform .65s var(--ease-bounce)}
+/* REVEAL — apenas translateY+opacity (composited-only, sem layout thrashing) */
+[data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .65s var(--ease-bounce),transform .65s var(--ease-bounce)}
+[data-reveal].revealed{opacity:1;transform:translateY(0)}
+[data-reveal-group]>*{opacity:0;transform:translateY(22px);transition:opacity .55s var(--ease-bounce),transform .55s var(--ease-bounce)}
 [data-reveal-group].revealed>*:nth-child(1){transition-delay:0ms}
-[data-reveal-group].revealed>*:nth-child(2){transition-delay:90ms}
-[data-reveal-group].revealed>*:nth-child(3){transition-delay:180ms}
-[data-reveal-group].revealed>*:nth-child(4){transition-delay:270ms}
-[data-reveal-group].revealed>*:nth-child(5){transition-delay:360ms}
-[data-reveal-group].revealed>*:nth-child(6){transition-delay:450ms}
-[data-reveal-group].revealed>*{opacity:1;transform:perspective(600px) rotateX(0deg) translateY(0) scale(1)}
+[data-reveal-group].revealed>*:nth-child(2){transition-delay:80ms}
+[data-reveal-group].revealed>*:nth-child(3){transition-delay:160ms}
+[data-reveal-group].revealed>*:nth-child(4){transition-delay:240ms}
+[data-reveal-group].revealed>*:nth-child(5){transition-delay:320ms}
+[data-reveal-group].revealed>*:nth-child(6){transition-delay:400ms}
+[data-reveal-group].revealed>*{opacity:1;transform:translateY(0)}
 
 /* hero-geo-canvas removed */
 
@@ -306,35 +307,26 @@ ul{list-style:none}
 .testimonial-author{font-size:.8125rem;font-weight:700;color:var(--color-text-primary)}
 .testimonial-role{font-size:.75rem;color:var(--color-text-muted);margin-top:2px}
 
-@keyframes fadeUp{from{opacity:0;transform:perspective(600px) rotateX(30deg) translateY(50px)}to{opacity:1;transform:perspective(600px) rotateX(0deg) translateY(0)}}
-@keyframes scaleIn{from{opacity:0;transform:perspective(800px) scale(0.88) rotateY(-8deg)}to{opacity:1;transform:perspective(800px) scale(1) rotateY(0deg)}}
+/* Keyframes simplificados — apenas propriedades composited (transform+opacity) */
+/* Sem rotateX/Y/perspective para evitar repaint em Android WebView */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUpSimple{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes glowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.75;transform:scale(1.06)}}
 @keyframes notifIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}[data-reveal],[data-reveal-group]>*{opacity:1!important;transform:none!important}}
 
 /* ===== FIXES MOBILE/ANDROID/iOS ===== */
-/* Evita que animações de entrada sejam aceleradas em Android */
+/* Garante animações hero simples em todos os dispositivos */
+.hero-tag,.hero-h1,.hero-sub,.hero-ctas,.hero-note,.stat-row,.hero-img-wrap img{
+  animation-name:fadeUpSimple!important;
+}
 @media(max-width:999px){
-  /* Remove perspectiva 3D pesada nas animações de entrada no mobile */
-  [data-reveal]{transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
-  [data-reveal].revealed{transform:translateY(0)}
-  [data-reveal-group]>*{transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
-  [data-reveal-group].revealed>*{transform:translateY(0)}
-  /* Corrige animações hero no mobile */
-  .hero-tag{animation:fadeUpSimple .5s ease .05s both}
-  .hero-h1{animation:fadeUpSimple .6s ease .15s both}
-  .hero-sub{animation:fadeUpSimple .5s ease .25s both}
-  .hero-ctas{animation:fadeUpSimple .5s ease .35s both}
-  .hero-note{animation:fadeUpSimple .4s ease .45s both}
-  .stat-row{animation:fadeUpSimple .5s ease .5s both}
-  .hero-img-wrap img{animation:fadeUpSimple .6s ease .2s both}
   /* Scrolling loops: velocidade adaptada pra tela menor */
   .platforms-mosaic-inner{animation-duration:24s}
   .fase-loop-track{animation-duration:28s}
   .testimonials-track{animation-duration:30s}
 }
-/* Animação simplificada para mobile (sem perspectiva 3D que causa bugs no Android WebView) */
-@keyframes fadeUpSimple{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
 /* iOS safe area */
 @supports(padding:max(0px)){
@@ -1094,16 +1086,20 @@ document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(el=>obser
   // ── Easing ──────────────────────────────────────────────────
   function easeIO(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
 
-  // ── Tween genérico — usa Date.now() para consistência em Android/WebView ──
+  // ── Tween genérico — SEMPRE via rAF (nunca síncrono no 1º frame) ─────────
+  // Nota: no Android WebView, executar o 1º tick fora do rAF cria um delta
+  // de quase 0ms, fazendo a animação parecer instantânea ou acelerada.
   function tween(from, to, dur, tick, done){
-    const t0 = Date.now();
     let rafId;
-    (function frame(){
-      const raw = Math.min((Date.now()-t0)/dur, 1);
-      tick(from + (to-from)*easeIO(raw));
+    let t0 = -1;
+    function frame(ts){
+      if(t0 < 0) t0 = ts;            // captura timestamp real do 1º frame rAF
+      const raw = Math.min((ts - t0) / dur, 1);
+      tick(from + (to - from) * easeIO(raw));
       if(raw < 1){ rafId = requestAnimationFrame(frame); }
       else if(done) done();
-    })();
+    }
+    rafId = requestAnimationFrame(frame); // 1º tick sempre via rAF
     return function cancel(){ if(rafId) cancelAnimationFrame(rafId); };
   }
 
